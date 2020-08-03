@@ -5,15 +5,12 @@ import { Button } from 'antd';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 
-// import './index.scss';
-// import './assets/styles/antd.less';
-import './index.less';
-
+import './index.scss';
+import './assets/styles/antd.less';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Button>1111</Button>
-    {/* <App /> */}
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
