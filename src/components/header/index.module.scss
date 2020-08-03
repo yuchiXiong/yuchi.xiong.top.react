@@ -1,0 +1,26 @@
+@import '../../assets/styles/var.scss';
+
+.header {
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+
+}
+
+.menu {
+    width: $container_width;
+    text-align: right;
+    border-bottom: none;
+}
+
+.menu:before {
+    color: $text_color;
+    content: '布布今天也在摸鱼吗';
+    float: left;
+    display: inline;
+    font-size: 20px;
+    font-weight: bold;
+}

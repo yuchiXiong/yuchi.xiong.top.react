@@ -1,5 +1,8 @@
+@import './assets/styles/var.scss';
+
 body {
   margin: 0;
+  background-color: map-get($lime-color, 1);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
