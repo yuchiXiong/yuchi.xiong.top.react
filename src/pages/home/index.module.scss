@@ -1,0 +1,13 @@
+@import 'Assets/styles/var.scss';
+
+.carousel {
+    padding: 48px;
+    height: 22vh;
+    text-align: center;
+    background-color: $block-color;
+    border-radius: 10px;
+
+    h2 {
+        color: $text-color;
+    }
+}

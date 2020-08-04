@@ -29,7 +29,7 @@ const defaultState = {
         {
             id: 1,
             title: '快速搭建自己的个人博客！Hexo入门指南',
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
@@ -117,7 +117,7 @@ const defaultState = {
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             description:
                 'React + NodeJS同构渲染，体验和SEO我都要!',
             content:
@@ -128,7 +128,7 @@ const defaultState = {
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             description:
                 '一转眼入坑Rails一年了，分享一点自己的心得',
             content:
@@ -139,7 +139,7 @@ const defaultState = {
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             description:
                 '手把手教你使用Hexo搭建一个自己的博客',
             content:
@@ -150,7 +150,7 @@ const defaultState = {
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             description:
                 'React + NodeJS同构渲染，体验和SEO我都要!',
             content:
@@ -161,7 +161,7 @@ const defaultState = {
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             description:
                 '一转眼入坑Rails一年了，分享一点自己的心得',
             content:
@@ -172,7 +172,7 @@ const defaultState = {
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             description:
                 '手把手教你使用Hexo搭建一个自己的博客',
             content:
@@ -183,7 +183,7 @@ const defaultState = {
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             description:
                 'React + NodeJS同构渲染，体验和SEO我都要!',
             content:
@@ -194,7 +194,7 @@ const defaultState = {
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             description:
                 '一转眼入坑Rails一年了，分享一点自己的心得',
             content:
@@ -205,7 +205,7 @@ const defaultState = {
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             description:
                 '手把手教你使用Hexo搭建一个自己的博客',
             content:
@@ -216,7 +216,7 @@ const defaultState = {
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             description:
                 'React + NodeJS同构渲染，体验和SEO我都要!',
             content:
@@ -227,7 +227,7 @@ const defaultState = {
             createdAt: '2020-07-28 19:10:47',
             tags: ['Rails', '全栈', 'Web'],
             image: null,
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            avatar: 'https://www.xiongyuchi.top/img/avatar.jpg',
             description:
                 '一转眼入坑Rails一年了，分享一点自己的心得',
             content:

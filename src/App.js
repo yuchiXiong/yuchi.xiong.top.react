@@ -8,6 +8,9 @@ import routes from './routes/';
 import store from './stores';
 
 import Header from './components/header';
+import Footer from './components/footer';
+
+import './index.scss';
 
 function App() {
   return (
@@ -15,7 +18,10 @@ function App() {
       <Router>
         <Suspense fallback={<Spin />}>
           <Header />
-          {renderRoutes(routes)}
+          <section className='blogs-body'>
+            {renderRoutes(routes)}
+          </section>
+          <Footer />
         </Suspense >
       </Router>
     </Provider>

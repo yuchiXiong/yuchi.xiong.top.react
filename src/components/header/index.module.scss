@@ -7,20 +7,17 @@
     background-color: #fff;
     display: flex;
     justify-content: center;
+    align-items: center;
+    // border-bottom: 1px solid $text_color;
+}
 
+.title {
+    color: $text_color !important;
+    margin-bottom: 0 !important;
 }
 
 .menu {
     width: $container_width;
-    text-align: right;
+    text-align: right !important;
     border-bottom: none;
-}
-
-.menu:before {
-    color: $text_color;
-    content: '布布今天也在摸鱼吗';
-    float: left;
-    display: inline;
-    font-size: 20px;
-    font-weight: bold;
 }
