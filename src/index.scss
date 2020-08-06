@@ -15,9 +15,19 @@ code {
     monospace;
 }
 
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
 .blogs-body {
-  padding: 72px 24px 24px 24px;
+  padding: 24px;
   max-width: $container-width;
   width: 100%;
-  margin: auto;
+  align-self: center;
+  // margin: auto;
+  // flex: 1;
 }

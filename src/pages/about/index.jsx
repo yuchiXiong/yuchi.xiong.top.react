@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, Button } from "antd";
+import DocumentTitle from 'react-document-title';
 import SimpleMDEEditor from 'react-simplemde-editor';
 import printJS from 'print-js';
 
@@ -47,22 +48,23 @@ const About = () => {
     };
 
     return (
-        <div className={styles.about}>
-            <Title level={2}>我是谁？</Title>
-            <SimpleMDEEditor
-                id='about_show_markdown_editor'
-                className='markdown-body'
-                getMdeInstance={getInsance}
-                value={input}
-                options={{
-                    autofocus: true,
-                    spellChecker: false,
-                    toolbar: false
-                }}
-            />
-            <Button onClick={downloadPDF}>下载简历</Button>
-        </div>
-
+        <DocumentTitle title='鱼翅 | 鱼翅是个周口店人'>
+            <div className={styles.about}>
+                <Title level={2}>我是谁？</Title>
+                <SimpleMDEEditor
+                    id='about_show_markdown_editor'
+                    className='markdown-body'
+                    getMdeInstance={getInsance}
+                    value={input}
+                    options={{
+                        autofocus: true,
+                        spellChecker: false,
+                        toolbar: false
+                    }}
+                />
+                <Button onClick={downloadPDF}>下载简历</Button>
+            </div>
+        </DocumentTitle>
     );
 
 };

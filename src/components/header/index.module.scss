@@ -1,23 +1,27 @@
 @import '../../assets/styles/var.scss';
 
-.header {
-    width: 100%;
-    position: fixed;
-    z-index: 100;
-    background-color: #fff;
+.container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    // border-bottom: 1px solid $text_color;
+    background-color: #fff;
+}
+
+.header {
+    display: flex;
+    max-width: $container-width;
+    width: 100%;
+    // justify-content: space-between;
+    // align-items: center;
 }
 
 .title {
+    display: flex;
+    align-self: center;
+    margin-right: auto;
     color: $text_color !important;
     margin-bottom: 0 !important;
 }
 
 .menu {
-    width: $container_width;
-    text-align: right !important;
     border-bottom: none;
 }
