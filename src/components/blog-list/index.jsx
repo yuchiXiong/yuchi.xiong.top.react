@@ -51,7 +51,7 @@ const BlogList = props => {
                     <List.Item.Meta
                         avatar={<Avatar src={item.avatar} />}
                         title={
-                            <Link to={`/show/${item.id}`}>
+                            <Link to={`/blog/${item.id}`}>
                                 <Title level={4}>{item.title}</Title>
                             </Link>
                         }

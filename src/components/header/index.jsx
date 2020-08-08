@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Menu, Typography } from 'antd';
 import { HomeFilled, FolderFilled, TagsFilled, ContactsFilled, MehFilled, BookFilled } from '@ant-design/icons';
 
@@ -10,7 +10,12 @@ const { Title } = Typography;
 const Header = () => {
 
     const [current, setCurrent] = useState('home');
-    let history = useHistory();
+    const history = useHistory();
+    const location = useLocation();
+
+    useEffect(() => {
+        setCurrent(location.pathname);
+    }, [location]);
 
     const handleClick = e => {
         setCurrent(e.key);
@@ -31,7 +36,6 @@ const Header = () => {
                     onClick={handleClick}
                     selectedKeys={[current]}
                     mode="horizontal">
-
                     <Menu.Item key="/" icon={<HomeFilled />}>
                         首页
                     </Menu.Item>

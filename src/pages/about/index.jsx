@@ -1,8 +1,9 @@
 import React from 'react';
 import { Typography, Button } from "antd";
-import DocumentTitle from 'react-document-title';
+import { Helmet } from 'react-helmet';
 import SimpleMDEEditor from 'react-simplemde-editor';
 import printJS from 'print-js';
+import websiteConfig from '@/config/website';
 
 import 'easymde/dist/easymde.min.css';
 import 'Assets/styles/markdown.css';
@@ -35,7 +36,6 @@ const About = () => {
     };
 
     const downloadPDF = () => {
-
         const editorHtml = MdInstance.markdown(input);
         printJS({
             type: 'raw-html',
@@ -48,7 +48,11 @@ const About = () => {
     };
 
     return (
-        <DocumentTitle title='鱼翅 | 鱼翅是个周口店人'>
+        <>
+            <Helmet>
+                <title>{`鱼翅 | ${websiteConfig.name}`}</title>
+                <meta name="description" content={`鱼翅 | ${websiteConfig.name}`} />
+            </Helmet>
             <div className={styles.about}>
                 <Title level={2}>我是谁？</Title>
                 <SimpleMDEEditor
@@ -64,7 +68,8 @@ const About = () => {
                 />
                 <Button onClick={downloadPDF}>下载简历</Button>
             </div>
-        </DocumentTitle>
+        </>
+
     );
 
 };

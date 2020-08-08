@@ -1,0 +1,21 @@
+.archive-list {
+    display: felx;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: none !important;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #eee;
+    }
+}
+
+.archive-pagination {
+    text-align: right;
+    margin: 24px 0;
+}
+
+.title {
+    font-size: 16px;
+}
