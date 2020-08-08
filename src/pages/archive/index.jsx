@@ -1,8 +1,10 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { List, Typography, Divider, Pagination } from 'antd';
 import dayjs from 'dayjs';
+import websiteConfig from '@/config/website';
 
 import styles from './index.module.scss';
 
@@ -19,6 +21,10 @@ const Archive = props => {
 
     return (
         <>
+            <Helmet>
+                <title>{`归档 | ${websiteConfig.name}`}</title>
+                <meta name="description" content={`归档 | ${websiteConfig.name}`} />
+            </Helmet>
             <Title level={3}>共记 {data.reduce((total, current) => total + current.blogs.length, 0)} 篇文章</Title>
             {data.map(item => {
                 return (
