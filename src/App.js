@@ -12,7 +12,9 @@ function App() {
     <>
       <Header />
       <div className='blogs-body'>
-        <Suspense fallback={<Spin />}>
+        <Suspense fallback={
+          <div style={{width: '100%', textAlign: 'center'}}><Spin /></div>
+        }>
           {renderRoutes(routes)}
         </Suspense >
       </div>
