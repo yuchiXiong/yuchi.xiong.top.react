@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 import { reducer as homeReducer } from '@/pages/home/store';
 import { reducer as archiveReducer } from '@/pages/archive/store';
@@ -12,5 +13,5 @@ const reducer = combineReducers({
     category: categoryReducer
 });
 
-export default createStore(reducer);
+export default createStore(reducer, applyMiddleware(thunk));
 

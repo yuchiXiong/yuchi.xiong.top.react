@@ -1,0 +1,7 @@
+const UPDATE_LIST = 'BLOG_UPDATE_LIST';
+const UPDATE_ITEM = 'BLOG_UPDATE_ITEM';
+
+export {
+    UPDATE_LIST,
+    UPDATE_ITEM
+};

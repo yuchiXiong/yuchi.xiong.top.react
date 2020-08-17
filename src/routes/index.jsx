@@ -1,5 +1,7 @@
 import React from 'react';
 
+const Login = React.lazy(() => import('@/pages/login'));
+
 const Home = React.lazy(() => import('@/pages/home'));
 
 const BlogShow = React.lazy(() => import('@/pages/home/show'));
@@ -16,6 +18,11 @@ const routes = [
         component: Home,
         exact: true,
         key: 'home'
+    },
+    {
+        path: '/login',
+        component: Login,
+        key: 'login'
     },
     {
         path: '/blog/new',

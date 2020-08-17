@@ -34,12 +34,12 @@ const BlogList = props => {
             renderItem={item => (
                 <List.Item
                     key={`blog_home_list_item_${item.id}`}
-                    actions={[
-                        <IconText icon={EyeOutlined} text="111" key="blog_home_list_visit" />,
-                        <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                        <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                        <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-                    ]}
+                    // actions={[
+                    //     <IconText icon={EyeOutlined} text="111" key="blog_home_list_visit" />,
+                    //     <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+                    //     <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+                    //     <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+                    // ]}
                     extra={
                         <img
                             width={272}
@@ -56,7 +56,6 @@ const BlogList = props => {
                             </Link>
                         }
                         description={item.description}
-
                     />
                     <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
                         {item.content}

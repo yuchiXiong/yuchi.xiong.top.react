@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Carousel, Tag, Typography } from 'antd';
@@ -8,11 +8,18 @@ import BlogList from '@/components/blog-list';
 
 import styles from './index.module.scss';
 
+import { getBlogs } from './store/action';
+
 const { Title } = Typography;
 
 const Home = props => {
 
     const { hots } = props;
+    const { getBlogs } = props;
+
+    useEffect(() => {
+        getBlogs(1);
+    }, []);
 
     return (
         <>
@@ -43,4 +50,12 @@ const mapStoreToProps = state => {
     };
 };
 
-export default connect(mapStoreToProps)(Home);
+const mapDispatchToProps = dispatch => {
+    return {
+        getBlogs(page) {
+            dispatch(getBlogs(page));
+        }
+    };
+};
+
+export default connect(mapStoreToProps, mapDispatchToProps)(Home);
