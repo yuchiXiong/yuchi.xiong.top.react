@@ -15,15 +15,18 @@ const { Title, Paragraph } = Typography;
 const BlogShow = props => {
 
     const { blog } = props;
+    console.log(blog);
     const { fetchBlog } = props;
 
     const getInsance = instance => {
         instance.togglePreview();
     };
 
+    // ! 我只希望组件挂载的时候执行一次拉取方法，但再useEffect中申明[]依赖却引起了webpack编译的warning提示
+    // ! 不声明[]时更离谱，会一直调用fetchBlog
     useEffect(() => {
         fetchBlog(props.match.params.id);
-    }, []);
+    }, [props.match.params.id, fetchBlog]);
 
     return (
         <>
@@ -56,7 +59,7 @@ const BlogShow = props => {
 };
 
 const mapStoreToProps = (state, ownProps) => ({
-    blog: state.home.list.filter(item => item.id == ownProps.match.params.id)[0]
+    blog: state.home.list.filter(item => item.id === parseInt(ownProps.match.params.id))[0]
 });
 
 const mapDispatchToProps = dispatch => ({

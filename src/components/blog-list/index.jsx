@@ -1,19 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { List, Avatar, Space, Typography } from 'antd';
-import { MessageOutlined, LikeOutlined, StarOutlined, EyeOutlined } from '@ant-design/icons';
+import { List, Avatar, Typography } from 'antd';
+// import { MessageOutlined, LikeOutlined, StarOutlined, EyeOutlined } from '@ant-design/icons';
 
 // import styles from './index.module.scss';
 
 const { Title, Paragraph } = Typography;
 
-const IconText = ({ icon, text }) => (
-    <Space>
-        {React.createElement(icon)}
-        {text}
-    </Space>
-);
+// const IconText = ({ icon, text }) => (
+//     <Space>
+//         {React.createElement(icon)}
+//         {text}
+//     </Space>
+// );
 
 
 const BlogList = props => {

@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { Carousel, Tag, Typography } from 'antd';
+// import { Carousel } from 'antd';
 import websiteConfig from '@/config/website';
 
 import BlogList from '@/components/blog-list';
 
-import styles from './index.module.scss';
+// import styles from './index.module.scss';
 
 import { getBlogs } from './store/action';
 
-const { Title } = Typography;
+// const { Title } = Typography;
 
 const Home = props => {
 
-    const { hots } = props;
+    // const { hots } = props;
     const { getBlogs } = props;
 
     useEffect(() => {
         getBlogs(1);
-    }, []);
+    }, [getBlogs]);
 
     return (
         <>
@@ -27,7 +27,7 @@ const Home = props => {
                 <title>{`首页 | ${websiteConfig.name}`}</title>
                 <meta name="description" content={`首页 | ${websiteConfig.name}`} />
             </Helmet>
-            <Carousel className={styles.carousel}>
+            {/* <Carousel className={styles.carousel}>
                 {hots.map(item => (
                     <div key={item.id}>
                         <Title level={2}>{item.title}</Title>
@@ -37,7 +37,7 @@ const Home = props => {
                         ))}
                     </div>
                 ))}
-            </Carousel>
+            </Carousel> */}
             <BlogList />
         </>
     );
@@ -45,7 +45,7 @@ const Home = props => {
 
 const mapStoreToProps = state => {
     return {
-        hots: state.home.hots,
+        // hots: state.home.hots,
         list: state.home.list
     };
 };
