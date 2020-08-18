@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Login = React.lazy(() => import('@/pages/login'));
+const Login = React.lazy(() => import('@/pages/user/login'));
 
 const Home = React.lazy(() => import('@/pages/home'));
 
@@ -11,6 +11,8 @@ const Archive = React.lazy(() => import('@/pages/archive'));
 const Category = React.lazy(() => import('@/pages/category'));
 const Tag = React.lazy(() => import('@/pages/tag'));
 const About = React.lazy(() => import('@/pages/about'));
+
+const NotFound = React.lazy(() => import('@/pages/404'));
 
 const routes = [
     {
@@ -55,6 +57,11 @@ const routes = [
         component: About,
         key: 'about'
     },
+    {
+        path: '*',
+        component: NotFound,
+        key: 'not-found'
+    }
 ];
 
 export default routes;

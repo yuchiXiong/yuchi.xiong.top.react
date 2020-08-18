@@ -11,9 +11,20 @@
     ? 既然后端Model层按照某种约定形成restful API，为什么前端不可以
 */
 import resources from './rails-resources';
+import request from './request';
+
+class Session {
+    static create(account, password) {
+        return request.post('api/v1/sessions', {
+            account,
+            password
+        });
+    }
+}
 
 const Blogs = resources('blogs');
 
 export {
-    Blogs
+    Blogs,
+    Session
 };

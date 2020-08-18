@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import SimpleMDEEditor from 'react-simplemde-editor';
+
 
 import 'easymde/dist/easymde.min.css';
 import styles from './new.module.scss';
 
-const BlogNew = () => {
+const BlogNew = props => {
 
+    const { userInfo } = props;
     const [input, setInput] = useState('');
 
     const getInsance = instance => {
@@ -14,14 +17,10 @@ const BlogNew = () => {
         instance.toggleSideBySide();
     };
 
-    const Login = () => {
-        return false;
-    };
-
     return (
         <>
             {
-                Login() ?
+                (userInfo || JSON.parse(localStorage.getItem('user'))) ?
                     <SimpleMDEEditor
                         id="blog-editor"
                         className={styles.editor}
@@ -41,4 +40,8 @@ const BlogNew = () => {
     );
 };
 
-export default BlogNew;
+const mapStateToProps = state => ({
+    userInfo: state.user.userInfo
+});
+
+export default connect(mapStateToProps)(BlogNew);
