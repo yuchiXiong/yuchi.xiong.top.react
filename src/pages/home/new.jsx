@@ -1,37 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import SimpleMDEEditor from 'react-simplemde-editor';
+import { Editor } from '@toast-ui/react-editor';
 
-
-import 'easymde/dist/easymde.min.css';
-import styles from './new.module.scss';
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+// import styles from './new.module.scss';
 
 const BlogNew = props => {
 
     const { userInfo } = props;
     const [input, setInput] = useState('');
-
-    const getInsance = instance => {
-        instance.toggleFullScreen();
-        instance.toggleSideBySide();
-    };
+    const mdEle = useRef(null);
 
     return (
         <>
             {
                 (userInfo || JSON.parse(localStorage.getItem('user'))) ?
-                    <SimpleMDEEditor
-                        id="blog-editor"
-                        className={styles.editor}
-                        getMdeInstance={getInsance}
-                        label="现在发布你的博客"
-                        onChange={e => setInput(e)}
-                        value={input}
-                        options={{
-                            autofocus: true,
-                            spellChecker: false
-                        }}
+                    <Editor
+                        ref={mdEle}
+                        initialValue={input}
+                        onChange={() => setInput(mdEle.current.value)}
+                        previewStyle="vertical"
+                        height="100%"
+                        initialEditType="markdown"
+                        useCommandShortcut={true}
                     /> :
                     <Redirect to='/login' />
             }

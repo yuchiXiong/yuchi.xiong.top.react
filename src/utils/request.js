@@ -7,7 +7,10 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://blog.xiongyuchi.top'
+    baseURL: 'http://blog.xiongyuchi.top',
+    headers:{
+        'Accept': 'application/json'
+    }
 });
 
 instance.interceptors.request.use(config => {

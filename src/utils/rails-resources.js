@@ -15,29 +15,29 @@ import request from './request';
 const resources = model => {
     return class Model {
         static index(page) {
-            return request.get(`/api/v1/${model}`, {
+            return request.get(`/${model}`, {
                 page
             });
         }
 
         static show(id) {
-            return request.get(`/api/v1/${model}/${id}`);
+            return request.get(`/${model}/${id}`);
         }
 
         static create(params) {
-            return request.post(`/api/v1/${model}`, {
+            return request.post(`/${model}`, {
                 params
             });
         }
 
         static update(id, params) {
-            return request.put(`/api/v1/${model}/${id}`, {
+            return request.put(`/${model}/${id}`, {
                 params
             });
         }
 
         static delete(id) {
-            return request.delete(`/api/v1/${model}/${id}`);
+            return request.delete(`/${model}/${id}`);
         }
     };
 };

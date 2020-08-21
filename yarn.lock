@@ -1572,6 +1572,21 @@
   resolved "https://registry.npm.taobao.org/@testing-library/user-event/download/@testing-library/user-event-7.2.1.tgz#2ad4e844175a3738cb9e7064be5ea070b8863a1c"
   integrity sha1-KtToRBdaNzjLnnBkvl6gcLiGOhw=
 
+"@toast-ui/editor@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.npm.taobao.org/@toast-ui/editor/download/@toast-ui/editor-2.3.1.tgz?cache=0&sync_timestamp=1596011532551&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40toast-ui%2Feditor%2Fdownload%2F%40toast-ui%2Feditor-2.3.1.tgz#add692840011efcdbd9b4b6de93dda2da12c36a0"
+  integrity sha1-rdaShAAR7829m0tt6T3aLaEsNqA=
+  dependencies:
+    "@types/codemirror" "0.0.71"
+    codemirror "^5.48.4"
+
+"@toast-ui/react-editor@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.npm.taobao.org/@toast-ui/react-editor/download/@toast-ui/react-editor-2.3.1.tgz#eaf812035236ad5644e78d4f3e3c34e1a3a58889"
+  integrity sha1-6vgSA1I2rVZE541PPjw04aOliIk=
+  dependencies:
+    "@toast-ui/editor" "^2.3.1"
+
 "@types/aria-query@^4.2.0":
   version "4.2.0"
   resolved "https://registry.npm.taobao.org/@types/aria-query/download/@types/aria-query-4.2.0.tgz#14264692a9d6e2fa4db3df5e56e94b5e25647ac0"
@@ -1610,10 +1625,10 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/codemirror@^0.0.88":
-  version "0.0.88"
-  resolved "https://registry.npm.taobao.org/@types/codemirror/download/@types/codemirror-0.0.88.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fcodemirror%2Fdownload%2F%40types%2Fcodemirror-0.0.88.tgz#429e3462ce22865dc40cc1cb27862edaeda0bbab"
-  integrity sha1-Qp40Ys4ihl3EDMHLJ4Yu2u2gu6s=
+"@types/codemirror@0.0.71":
+  version "0.0.71"
+  resolved "https://registry.npm.taobao.org/@types/codemirror/download/@types/codemirror-0.0.71.tgz#861f1bcb3100c0a064567c5400f2981cf4ae8ca7"
+  integrity sha1-hh8byzEAwKBkVnxUAPKYHPSujKc=
   dependencies:
     "@types/tern" "*"
 
@@ -1664,11 +1679,6 @@
   version "7.0.5"
   resolved "https://registry.npm.taobao.org/@types/json-schema/download/@types/json-schema-7.0.5.tgz?cache=0&sync_timestamp=1591720921048&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fjson-schema%2Fdownload%2F%40types%2Fjson-schema-7.0.5.tgz#dcce4430e64b443ba8945f0290fb564ad5bac6dd"
   integrity sha1-3M5EMOZLRDuolF8CkPtWStW6xt0=
-
-"@types/marked@^0.7.4":
-  version "0.7.4"
-  resolved "https://registry.npm.taobao.org/@types/marked/download/@types/marked-0.7.4.tgz#607685669bb1bbde2300bc58ba43486cbbee1f0a"
-  integrity sha1-YHaFZpuxu94jALxYukNIbLvuHwo=
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -3238,17 +3248,10 @@ code-point-at@^1.0.0:
   resolved "https://registry.npm.taobao.org/code-point-at/download/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codemirror-spell-checker@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.npm.taobao.org/codemirror-spell-checker/download/codemirror-spell-checker-1.1.2.tgz#1c660f9089483ccb5113b9ba9ca19c3f4993371e"
-  integrity sha1-HGYPkIlIPMtRE7m6nKGcP0mTNx4=
-  dependencies:
-    typo-js "*"
-
-codemirror@^5.55.0:
-  version "5.56.0"
-  resolved "https://registry.npm.taobao.org/codemirror/download/codemirror-5.56.0.tgz#675640fcc780105cd22d3faa738b5d7ea6426f61"
-  integrity sha1-Z1ZA/MeAEFzSLT+qc4tdfqZCb2E=
+codemirror@^5.48.4:
+  version "5.57.0"
+  resolved "https://registry.npm.taobao.org/codemirror/download/codemirror-5.57.0.tgz?cache=0&sync_timestamp=1597910558771&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcodemirror%2Fdownload%2Fcodemirror-5.57.0.tgz#d26365b72f909f5d2dbb6b1209349ca1daeb2d50"
+  integrity sha1-0mNlty+Qn10tu2sSCTScodrrLVA=
 
 collection-visit@^1.0.0:
   version "1.0.0"
@@ -3872,10 +3875,10 @@ dayjs@^1.8.30:
   resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.8.31.tgz#0cd1114c2539dd5ad9428be0c38df6d4bb40b9d3"
   integrity sha1-DNERTCU53VrZQovgw4321LtAudM=
 
-dayjs@^1.8.32:
-  version "1.8.32"
-  resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.8.32.tgz?cache=0&sync_timestamp=1596547000240&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdayjs%2Fdownload%2Fdayjs-1.8.32.tgz#66c48b95c397d9f7907e89bd29f78b3d19d40294"
-  integrity sha1-ZsSLlcOX2feQfom9KfeLPRnUApQ=
+dayjs@^1.8.34:
+  version "1.8.34"
+  resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.8.34.tgz?cache=0&sync_timestamp=1597892613775&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdayjs%2Fdownload%2Fdayjs-1.8.34.tgz#d3ad33cc43d6b0f24cb8686b90aad2c653708069"
+  integrity sha1-060zzEPWsPJMuGhrkKrSxlNwgGk=
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.9:
   version "2.6.9"
@@ -4206,15 +4209,6 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
-
-easymde@^2.10.1:
-  version "2.11.0"
-  resolved "https://registry.npm.taobao.org/easymde/download/easymde-2.11.0.tgz#544d27c6f265c8be15b4256957731c6de3a6a5b9"
-  integrity sha1-VE0nxvJlyL4VtCVpV3McbeOmpbk=
-  dependencies:
-    codemirror "^5.55.0"
-    codemirror-spell-checker "1.1.2"
-    marked "^1.1.1"
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"
@@ -7180,11 +7174,6 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marked@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.npm.taobao.org/marked/download/marked-1.1.1.tgz?cache=0&sync_timestamp=1594690153421&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmarked%2Fdownload%2Fmarked-1.1.1.tgz#e5d61b69842210d5df57b05856e0c91572703e6a"
-  integrity sha1-5dYbaYQiENXfV7BYVuDJFXJwPmo=
-
 md5.js@^1.3.4:
   version "1.3.5"
   resolved "https://registry.npm.taobao.org/md5.js/download/md5.js-1.3.5.tgz#b5d07b8e3216e3e27cd728d72f70d1e6a342005f"
@@ -9741,15 +9730,6 @@ react-side-effect@^2.1.0:
   resolved "https://registry.npm.taobao.org/react-side-effect/download/react-side-effect-2.1.0.tgz#1ce4a8b4445168c487ed24dab886421f74d380d3"
   integrity sha1-HOSotERRaMSH7STauIZCH3TTgNM=
 
-react-simplemde-editor@^4.1.3:
-  version "4.1.3"
-  resolved "https://registry.npm.taobao.org/react-simplemde-editor/download/react-simplemde-editor-4.1.3.tgz#e3f5eba988817035c5aa1cae8f1a9d5dfec6081a"
-  integrity sha1-4/XrqYiBcDXFqhyujxqdXf7GCBo=
-  dependencies:
-    "@types/codemirror" "^0.0.88"
-    "@types/marked" "^0.7.4"
-    easymde "^2.10.1"
-
 react-tagcloud@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/react-tagcloud/download/react-tagcloud-2.0.0.tgz#15b53729d266f436a5782f72c34451dd85839807"
@@ -11413,11 +11393,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-
-typo-js@*:
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/typo-js/download/typo-js-1.1.0.tgz#a5a9f592bcb453666bf70c9694da58705d025ed8"
-  integrity sha1-pan1kry0U2Zr9wyWlNpYcF0CXtg=
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

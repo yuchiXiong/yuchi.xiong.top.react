@@ -1,26 +1,22 @@
 import React, { useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import SimpleMDEEditor from 'react-simplemde-editor';
+import { Helmet } from 'react-helmet';
+import { Viewer } from '@toast-ui/react-editor';
 import { Typography } from "antd";
+import dayjs from 'dayjs';
 import websiteConfig from '@/config/website';
 
 import { getBlog } from './store/action';
 
-import 'easymde/dist/easymde.min.css';
-import 'Assets/styles/markdown.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+// import 'Assets/styles/markdown.css';
 
 const { Title, Paragraph } = Typography;
 
 const BlogShow = props => {
 
     const { blog } = props;
-    console.log(blog);
     const { fetchBlog } = props;
-
-    const getInsance = instance => {
-        instance.togglePreview();
-    };
 
     // ! 我只希望组件挂载的时候执行一次拉取方法，但再useEffect中申明[]依赖却引起了webpack编译的warning提示
     // ! 不声明[]时更离谱，会一直调用fetchBlog
@@ -39,17 +35,15 @@ const BlogShow = props => {
                     </Helmet>
                     <Typography>
                         <Title>{blog.title}</Title>
-                        <Paragraph>发布时间：{blog.createdAt}</Paragraph>
-                        <SimpleMDEEditor
-                            id='blog-show-markdown-editor'
-                            className='markdown-body'
-                            getMdeInstance={getInsance}
-                            value={blog.content}
-                            options={{
-                                autofocus: true,
-                                spellChecker: false,
-                                toolbar: false
-                            }}
+                        <Paragraph>发布时间：{dayjs(blog.createdAt).format('YYYY年MM月DD日 HH:mm:ss')}</Paragraph>
+                        <Viewer
+                            initialValue={blog.content}
+                            previewStyle="vertical"
+                            height="auto"
+                            initialEditType="markdown"
+                            useCommandShortcut={true}
+                            hideModeSwitch={true}
+                            viewer={true}
                         />
                     </Typography>
                 </>

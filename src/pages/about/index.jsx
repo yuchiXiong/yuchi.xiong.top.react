@@ -1,12 +1,10 @@
 import React from 'react';
-import { Typography, Button } from "antd";
+import { Typography } from "antd";
 import { Helmet } from 'react-helmet';
-import SimpleMDEEditor from 'react-simplemde-editor';
-import printJS from 'print-js';
+import { Viewer } from '@toast-ui/react-editor';
+// import printJS from 'print-js';
 import websiteConfig from '@/config/website';
 
-import 'easymde/dist/easymde.min.css';
-import 'Assets/styles/markdown.css';
 import styles from './index.module.scss';
 
 const input = `
@@ -28,24 +26,16 @@ const { Title } = Typography;
 
 const About = () => {
 
-    let MdInstance = null;
-
-    const getInsance = instance => {
-        instance.togglePreview();
-        MdInstance = instance;
-    };
-
-    const downloadPDF = () => {
-        const editorHtml = MdInstance.markdown(input);
-        printJS({
-            type: 'raw-html',
-            css: "",
-            scanStyles: true,
-            printable: editorHtml,
-            targetStyles: ['*'],
-            documentTitle: "&nbsp"
-        });
-    };
+    // const downloadPDF = () => {
+    //     printJS({
+    //         type: 'raw-html',
+    //         css: "",
+    //         scanStyles: true,
+    //         printable: editorHtml,
+    //         targetStyles: ['*'],
+    //         documentTitle: "&nbsp"
+    //     });
+    // };
 
     return (
         <>
@@ -55,18 +45,10 @@ const About = () => {
             </Helmet>
             <div className={styles.about}>
                 <Title level={2}>我是谁？</Title>
-                <SimpleMDEEditor
-                    id='about_show_markdown_editor'
-                    className='markdown-body'
-                    getMdeInstance={getInsance}
-                    value={input}
-                    options={{
-                        autofocus: true,
-                        spellChecker: false,
-                        toolbar: false
-                    }}
+                <Viewer
+                    initialValue={input}
                 />
-                <Button onClick={downloadPDF}>下载简历</Button>
+                {/* <Button onClick={downloadPDF}>下载简历</Button> */}
             </div>
         </>
 
