@@ -14,12 +14,16 @@ import { getBlogs } from './store/action';
 
 const Home = props => {
 
-    // const { hots } = props;
+    const { list, total } = props;
     const { getBlogs } = props;
 
     useEffect(() => {
         getBlogs(1);
     }, [getBlogs]);
+
+    const togglePage = page => {
+        getBlogs(page);
+    };
 
     return (
         <>
@@ -38,7 +42,7 @@ const Home = props => {
                     </div>
                 ))}
             </Carousel> */}
-            <BlogList />
+            <BlogList list={list} total={total} togglePage={togglePage} />
         </>
     );
 };
@@ -46,7 +50,8 @@ const Home = props => {
 const mapStoreToProps = state => {
     return {
         // hots: state.home.hots,
-        list: state.home.list
+        list: state.home.list,
+        total: state.home.total
     };
 };
 

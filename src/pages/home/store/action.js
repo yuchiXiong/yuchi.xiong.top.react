@@ -5,15 +5,16 @@ import { UPDATE_LIST, UPDATE_ITEM, ADD_ITEM } from './constants';
 
 
 // * 拉取博客列表
-const fetchBlogList = list => ({
+const fetchBlogList = (list, total) => ({
     type: UPDATE_LIST,
-    list
+    list,
+    total
 });
 
 const getBlogs = page => {
     return dispatch => {
         return Blogs.index(page).then(res => {
-            dispatch(fetchBlogList(res.data.blogs));
+            dispatch(fetchBlogList(res.data.blogs, res.data.total));
         });
     };
 };

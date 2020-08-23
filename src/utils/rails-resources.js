@@ -16,7 +16,9 @@ const resources = model => {
     return class Model {
         static index(page) {
             return request.get(`/${model}`, {
-                page
+                params: {
+                    page
+                }
             });
         }
 

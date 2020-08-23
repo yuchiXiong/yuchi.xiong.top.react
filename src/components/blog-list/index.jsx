@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { List, Avatar, Typography } from 'antd';
 // import { MessageOutlined, LikeOutlined, StarOutlined, EyeOutlined } from '@ant-design/icons';
@@ -18,7 +17,8 @@ const { Title, Paragraph } = Typography;
 
 const BlogList = props => {
 
-    const { listData } = props;
+    const { list, total } = props;
+    const { togglePage } = props;
 
     return (
         <List
@@ -26,30 +26,32 @@ const BlogList = props => {
             size="large"
             pagination={{
                 onChange: page => {
-                    console.log(page);
+                    togglePage(page);
                 },
-                pageSize: 10,
+                total: total.count,
+                current: total.current,
+                pageSize: 20,
             }}
-            dataSource={listData}
+            dataSource={list}
             renderItem={item => (
                 <List.Item
-                    key={`blog_home_list_item_${item.id}`}
-                    // actions={[
-                    //     <IconText icon={EyeOutlined} text="111" key="blog_home_list_visit" />,
-                    //     <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                    //     <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                    //     <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-                    // ]}
-                    extra={
-                        <img
-                            width={272}
-                            alt="logo"
-                            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                        />
-                    }
+                    key={`blog-home-list-item-${item.id}`}
+                // actions={[
+                //     <IconText icon={EyeOutlined} text="111" key="blog_home_list_visit" />,
+                //     <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+                //     <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+                //     <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+                // ]}
+                // extra={
+                //     <img
+                //         width={272}
+                //         alt="logo"
+                //         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                //     />
+                // }
                 >
                     <List.Item.Meta
-                        avatar={<Avatar src={item.avatar} />}
+                        // avatar={<Avatar src={item.avatar} />}
                         title={
                             <Link to={`/blog/${item.id}`}>
                                 <Title level={4}>{item.title}</Title>
@@ -57,17 +59,14 @@ const BlogList = props => {
                         }
                         description={item.description}
                     />
-                    <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
+                    {/* <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
                         {item.content}
-                    </Paragraph>
+                    </Paragraph> */}
                 </List.Item>
             )}
         />
     );
 };
 
-const mapStoreToProps = state => ({
-    listData: state.home.list
-});
 
-export default connect(mapStoreToProps, null)(BlogList);
+export default BlogList;

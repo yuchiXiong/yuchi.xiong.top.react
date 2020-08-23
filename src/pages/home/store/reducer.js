@@ -27,7 +27,11 @@ const defaultState = {
     //         image: null
     //     }
     // ],
-    list: []
+    list: [],
+    total: {
+        count: 0,
+        current: 1
+    }
 };
 
 // ! 关于index动作与show动作的一点思考：
@@ -39,7 +43,9 @@ const reducer = (state = defaultState, action) => {
         case UPDATE_LIST:
             return {
                 ...state,
-                list: action.list
+                list: action.list,
+                // list: state.list.concat(action.list),
+                total: action.total
             };
         case UPDATE_ITEM:
             let current = state.list.filter(item => parseInt(item.id) === action.blog.id)[0];
