@@ -1,6 +1,14 @@
-.editor {
-  position: fixed;
-  z-index: 101;
-  width: 50%;
-  height: 100%;
+// .editor {
+//   position: fixed;
+//   z-index: 101;
+//   width: 50%;
+//   height: 100%;
+// }
+:global(.tui-editor-defaultUI-toolbar) {
+  display: flex;
+}
+
+:global(.tui-scrollsync.active),
+:global(.tui-editor-defaultUI-toolbar .tui-toolbar-divider:nth-of-type(6)) {
+  display: none !important;
 }

@@ -15,7 +15,7 @@ import request from './request';
 
 class Session {
     static create(account, password) {
-        return request.post('api/v1/sessions', {
+        return request.post('/sessions', {
             account,
             password
         });

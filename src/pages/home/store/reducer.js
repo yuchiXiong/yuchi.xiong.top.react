@@ -1,4 +1,4 @@
-import { UPDATE_LIST, UPDATE_ITEM } from './constants';
+import { UPDATE_LIST, UPDATE_ITEM, ADD_ITEM } from './constants';
 
 const defaultState = {
     // hots: [
@@ -51,6 +51,11 @@ const reducer = (state = defaultState, action) => {
             return {
                 ...state,
                 list: state.list
+            };
+        case ADD_ITEM:
+            return {
+                ...state,
+                list: state.list.concat(action.blog)
             };
         default:
             return state;

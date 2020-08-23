@@ -24,20 +24,32 @@ const resources = model => {
             return request.get(`/${model}/${id}`);
         }
 
-        static create(params) {
+        static create(params, headers) {
             return request.post(`/${model}`, {
-                params
+                ...params
+            }, {
+                headers: {
+                    ...headers
+                }
             });
         }
 
-        static update(id, params) {
+        static update(id, params, headers) {
             return request.put(`/${model}/${id}`, {
-                params
+                ...params
+            }, {
+                headers: {
+                    ...headers
+                }
             });
         }
 
-        static delete(id) {
-            return request.delete(`/${model}/${id}`);
+        static delete(id, headers) {
+            return request.delete(`/${model}/${id}`, {
+                headers: {
+                    ...headers
+                }
+            });
         }
     };
 };

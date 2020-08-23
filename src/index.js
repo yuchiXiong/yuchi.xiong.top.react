@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
+import history from '@/utils/history';
 // import * as serviceWorker from './serviceWorker';
 
 import App from './App';
@@ -12,10 +12,11 @@ import store from './stores';
 import './assets/styles/antd.less';
 import './index.scss';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
+      <Router history={history}>
         <App />
       </Router>
     </Provider>

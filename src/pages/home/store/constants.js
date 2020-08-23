@@ -1,7 +1,9 @@
 const UPDATE_LIST = 'BLOG_UPDATE_LIST';
 const UPDATE_ITEM = 'BLOG_UPDATE_ITEM';
+const ADD_ITEM = 'BLOG_ADD_ITEM';
 
 export {
     UPDATE_LIST,
-    UPDATE_ITEM
+    UPDATE_ITEM,
+    ADD_ITEM
 };

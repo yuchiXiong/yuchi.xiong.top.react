@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { login } from './store/action';
 
@@ -13,7 +14,9 @@ const tailLayout = {
 
 const Login = props => {
 
+    const { userInfo } = props;
     const { Login } = props;
+    console.log((userInfo || localStorage.getItem('user')) ? 1 : 2);
 
     const onFinish = values => {
         Login(values.account, values.password);
@@ -24,41 +27,47 @@ const Login = props => {
     };
 
     return (
-        <Form
-            {...layout}
-            name="basic"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-        >
-            <Form.Item
-                label="Account"
-                name="account"
-                rules={[{ required: true, message: '请输入账号！' }]}
+        (userInfo || localStorage.getItem('user')) ?
+            <Redirect to='/blog/new' /> :
+            <Form
+                {...layout}
+                name="basic"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
             >
-                <Input />
-            </Form.Item>
+                <Form.Item
+                    label="Account"
+                    name="account"
+                    rules={[{ required: true, message: '请输入账号！' }]}
+                >
+                    <Input />
+                </Form.Item>
 
-            <Form.Item
-                label="Password"
-                name="password"
-                rules={[{ required: true, message: '请输入密码！' }]}
-            >
-                <Input.Password />
-            </Form.Item>
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[{ required: true, message: '请输入密码！' }]}
+                >
+                    <Input.Password />
+                </Form.Item>
 
-            <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-                <Checkbox>记住我</Checkbox>
-            </Form.Item>
+                <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+                    <Checkbox>记住我</Checkbox>
+                </Form.Item>
 
-            <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">
-                    登录
+                <Form.Item {...tailLayout}>
+                    <Button type="primary" htmlType="submit">
+                        登录
                 </Button>
-            </Form.Item>
-        </Form>
+                </Form.Item>
+            </Form>
     );
 };
+
+const mapStateToProps = state => ({
+    userInfo: state.user.userInfo
+});
 
 const mapDispatchToProps = dispatch => ({
     Login(account, password) {
@@ -66,4 +75,4 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
