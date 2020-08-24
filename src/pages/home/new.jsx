@@ -87,6 +87,7 @@ const BlogNew = props => {
                     <>
 
                         <Input
+                            styleName={styles['input-title']}
                             onChange={e => setBlog({
                                 ...blog,
                                 title: e.target.value

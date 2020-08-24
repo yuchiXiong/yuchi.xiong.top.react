@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Viewer } from '@toast-ui/react-editor';
@@ -15,45 +16,53 @@ const { Title, Paragraph } = Typography;
 
 const BlogShow = props => {
 
-    const { blog } = props;
+    const { current } = props;
     const { fetchBlog } = props;
+    const { id } = useParams();
+    const viewerRef = useRef(null);
 
     // ! 我只希望组件挂载的时候执行一次拉取方法，但再useEffect中申明[]依赖却引起了webpack编译的warning提示
     // ! 不声明[]时更离谱，会一直调用fetchBlog
     useEffect(() => {
-        fetchBlog(props.match.params.id);
-    }, [props.match.params.id, fetchBlog]);
+        fetchBlog(id);
+    }, [id, fetchBlog]);
+
+    useEffect(() => {
+        current && viewerRef.current.getInstance().setMarkdown(current.content);
+    }, [current]);
 
     return (
         <>
             {
-                blog &&
-                <>
-                    <Helmet>
-                        <title>{`${blog.title} | ${websiteConfig.name}`}</title>
-                        <meta name="description" content={`${blog.title} | ${websiteConfig.name}`} />
-                    </Helmet>
-                    <Typography>
-                        <Title>{blog.title}</Title>
-                        <Paragraph>发布时间：{dayjs(blog.createdAt).format('YYYY年MM月DD日 HH:mm:ss')}</Paragraph>
-                        <Viewer
-                            initialValue={blog.content}
-                            previewStyle="vertical"
-                            height="auto"
-                            initialEditType="markdown"
-                            useCommandShortcut={true}
-                            hideModeSwitch={true}
-                            viewer={true}
-                        />
-                    </Typography>
-                </>
+                current ?
+                    <>
+                        <Helmet>
+                            <title>{`${current.title} | ${websiteConfig.name}`}</title>
+                            <meta name="description" content={`${current.title} | ${websiteConfig.name}`} />
+                        </Helmet>
+                        <Typography>
+                            <Title>{current.title}</Title>
+                            <Paragraph>发布时间：{dayjs(current.createdAt).format('YYYY年MM月DD日 HH:mm:ss')}</Paragraph>
+                            <Viewer
+                                ref={viewerRef}
+                                initialValue={current.content}
+                                previewStyle="vertical"
+                                height="auto"
+                                initialEditType="markdown"
+                                useCommandShortcut={true}
+                                hideModeSwitch={true}
+                                viewer={true}
+                            />
+                        </Typography>
+                    </> :
+                    <h1>加载中...</h1>
             }
         </>
     );
 };
 
-const mapStoreToProps = (state, ownProps) => ({
-    blog: state.home.list.filter(item => item.id === parseInt(ownProps.match.params.id))[0]
+const mapStateToProps = (state, ownProps) => ({
+    current: state.home.list.filter(item => parseInt(item.id) === parseInt(ownProps.match.params.id))[0]
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -62,4 +71,4 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(mapStoreToProps, mapDispatchToProps)(BlogShow);
+export default connect(mapStateToProps, mapDispatchToProps)(BlogShow);

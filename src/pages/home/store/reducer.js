@@ -44,19 +44,15 @@ const reducer = (state = defaultState, action) => {
             return {
                 ...state,
                 list: action.list,
-                // list: state.list.concat(action.list),
                 total: action.total
             };
         case UPDATE_ITEM:
-            let current = state.list.filter(item => parseInt(item.id) === action.blog.id)[0];
-            if (current) {
-                state.list[state.list.indexOf(current)] = action.blog;
-            } else {
-                state.list.push(action.blog);
-            }
             return {
                 ...state,
-                list: state.list
+                list: [
+                    ...state.list.filter(item => parseInt(item.id) !== parseInt(action.blog.id)),
+                    action.blog
+                ]
             };
         case ADD_ITEM:
             return {

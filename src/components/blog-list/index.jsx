@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { List, Avatar, Typography } from 'antd';
+import { List, Typography } from 'antd';
 // import { MessageOutlined, LikeOutlined, StarOutlined, EyeOutlined } from '@ant-design/icons';
 
 // import styles from './index.module.scss';
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 // const IconText = ({ icon, text }) => (
 //     <Space>
