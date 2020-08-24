@@ -3,13 +3,39 @@
 .container {
     display: flex;
     justify-content: center;
-    background-color: #fff;
+    background-color: #fffa;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    transition: border-bottom 450ms;
+    transition: background 450ms;
+}
+
+.github {
+    display: flex;
+    position: absolute;
+    top: 12px;
+    right: -24px;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    transition: right 300ms;
+
+    a {
+        display: flex;
+    }
+}
+
+.container:hover .github {
+    right: 12px;
 }
 
 .header {
     display: flex;
     max-width: $container-width;
     width: 100%;
+    
     // justify-content: space-between;
     // align-items: center;
 }
@@ -24,4 +50,5 @@
 
 .menu {
     border-bottom: none;
+    background-color: transparent !important;
 }

@@ -42,20 +42,22 @@ const BlogNew = props => {
     });
 
     const mdRef = useRef(null);
-    // const history = useHistory();
 
     useEffect(() => {
-        const mdInstance = mdRef.current.getInstance();
+        if (userInfo || JSON.parse(localStorage.getItem('user'))) {
+            const mdInstance = mdRef.current.getInstance();
 
-        // ! toast-ui/react-editor 未提供 removeEventType 方法
-        !mdInstance.eventManager._hasEventType('onRelease') && mdInstance.eventManager.addEventType('onRelease');
-        mdInstance.eventManager.listen('onRelease', () => {
-            releaseBlog(blog);
-        });
+            // ! toast-ui/react-editor 未提供 removeEventType 方法
+            !mdInstance.eventManager._hasEventType('onRelease') && mdInstance.eventManager.addEventType('onRelease');
+            mdInstance.eventManager.listen('onRelease', () => {
+                releaseBlog(blog);
+            });
 
-        return () => {
-            mdInstance.eventManager.removeEventHandler('onRelease');
-        };
+            return () => {
+                mdInstance.eventManager.removeEventHandler('onRelease');
+            };
+        }
+
     }, [blog, userInfo, releaseBlog]);
 
     const handleEditorChange = () => {
