@@ -40,19 +40,24 @@ code {
 }
 
 #root {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
+  background: #FDCE4E url('./assets/images/test-bg.jpg') no-repeat top center;
+  background-size: 100%;
 }
 
 .blogs-body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin: 100px 0 24px 0;
   padding: 24px;
   max-width: $container-width;
   width: 100%;
   align-self: center;
+  background-color: #fff;
+  border-radius: 10px;
 }
