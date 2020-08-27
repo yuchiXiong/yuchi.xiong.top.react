@@ -11,6 +11,7 @@ import { getBlog } from './store/action';
 
 import '@toast-ui/editor/dist/toastui-editor.css';
 // import 'Assets/styles/markdown.css';
+import styles from './show.module.scss';
 
 const { Title, Paragraph } = Typography;
 
@@ -40,7 +41,7 @@ const BlogShow = props => {
                             <title>{`${current.title} | ${websiteConfig.name}`}</title>
                             <meta name="description" content={`${current.title} | ${websiteConfig.name}`} />
                         </Helmet>
-                        <Typography>
+                        <Typography className={styles['blog']}>
                             <Title>{current.title}</Title>
                             <Paragraph>发布时间：{dayjs(current.createdAt).format('YYYY年MM月DD日 HH:mm:ss')}</Paragraph>
                             <Viewer

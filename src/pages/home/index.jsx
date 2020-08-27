@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-// import { Carousel } from 'antd';
+import { Carousel, Typography } from 'antd';
+import CalendarHeatmap from 'react-calendar-heatmap';
 import websiteConfig from '@/config/website';
 
 import BlogList from '@/components/blog-list';
 
-// import styles from './index.module.scss';
+import 'react-calendar-heatmap/dist/styles.css';
+import styles from './index.module.scss';
 
 import { getBlogs } from './store/action';
 
-// const { Title } = Typography;
+const { Title } = Typography;
 
 const Home = props => {
 
@@ -42,6 +44,18 @@ const Home = props => {
                     </div>
                 ))}
             </Carousel> */}
+
+
+
+            {/* <div className={styles.card}>
+                <Title level={4}>
+                    {`大堰河，今天我看见雪使我想起了你。
+                    你的被雪压着的草盖的坟墓，
+                    你的关闭了的故居檐头的枯死的瓦菲，
+                    你的被典押了的一丈平方的园地，
+                    你的门前的长了青苔的石椅，
+                    大堰河，今天我看到雪使我想起了你。`}</Title>
+            </div> */}
             <BlogList list={list} total={total} togglePage={togglePage} />
         </>
     );

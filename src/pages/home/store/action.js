@@ -14,7 +14,9 @@ const fetchBlogList = (list, total) => ({
 const getBlogs = page => {
     return dispatch => {
         return Blogs.index(page).then(res => {
-            dispatch(fetchBlogList(res.data.blogs, res.data.total));
+            if (res) {
+                dispatch(fetchBlogList(res.data.blogs, res.data.total));
+            }
         });
     };
 };

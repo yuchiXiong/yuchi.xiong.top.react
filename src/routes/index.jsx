@@ -12,6 +12,7 @@ const Category = React.lazy(() => import('@/pages/category'));
 const Tag = React.lazy(() => import('@/pages/tag'));
 const About = React.lazy(() => import('@/pages/about'));
 
+const ServerError = React.lazy(() => import('@/pages/500'));
 const NotFound = React.lazy(() => import('@/pages/404'));
 
 const routes = [
@@ -56,6 +57,11 @@ const routes = [
         path: '/about',
         component: About,
         key: 'about'
+    },
+    {
+        path: '/error',
+        component: ServerError,
+        key: 'server-error'
     },
     {
         path: '*',

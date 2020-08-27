@@ -1,5 +1,25 @@
 @import 'Assets/styles/var.scss';
 
+.calendar {
+    background-color: #fff;
+}
+
+.card {
+    padding: 64px 96px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    min-height: 40vh;
+    background: #fff url('../../assets/images/cat.jpg') no-repeat 0 center;
+    background-size: 100%;
+
+    h4 {
+        color: #fff;
+        font-size: 24px;
+
+    }
+}
+
+
 .carousel {
     padding: 4vh;
     height: 20vh;

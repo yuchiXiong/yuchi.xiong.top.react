@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { List, Typography } from 'antd';
-// import { MessageOutlined, LikeOutlined, StarOutlined, EyeOutlined } from '@ant-design/icons';
+import { List, Typography, Space, Avatar, Button } from 'antd';
+import { Viewer } from '@toast-ui/react-editor';
+import { CalendarOutlined, MessageOutlined, LikeOutlined, StarOutlined, EyeOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
 
-// import styles from './index.module.scss';
+import styles from './index.module.scss';
 
 const { Title } = Typography;
 
@@ -22,47 +24,59 @@ const BlogList = props => {
 
     return (
         <List
+            className={styles['list']}
             itemLayout="vertical"
             size="large"
             pagination={{
                 onChange: page => {
                     togglePage(page);
                 },
+                hideOnSinglePage: true,
                 total: total.count,
                 current: total.current,
-                pageSize: 20,
+                pageSize: 10,
             }}
             dataSource={list}
             renderItem={item => (
-                <List.Item
+                <Link
+                    loading={true}
                     key={`blog-home-list-item-${item.id}`}
-                // actions={[
-                //     <IconText icon={EyeOutlined} text="111" key="blog_home_list_visit" />,
-                //     <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                //     <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                //     <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-                // ]}
-                // extra={
-                //     <img
-                //         width={272}
-                //         alt="logo"
-                //         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                //     />
-                // }
-                >
-                    <List.Item.Meta
-                        // avatar={<Avatar src={item.avatar} />}
-                        title={
-                            <Link to={`/blog/${item.id}`}>
-                                <Title level={4}>{item.title}</Title>
-                            </Link>
+                    to={`/blog/${item.id}`}>
+                    <List.Item
+                        className={styles['list-item']}
+                        // actions={[
+                        //     <IconText icon={EyeOutlined} text="111" key="blog_home_list_visit" />,
+                        //     <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+                        //     <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+                        //     <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+                        // ]}
+                        extra={
+                            <img
+                                width={272}
+                                alt="logo"
+                                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                            />
                         }
-                        description={item.description}
-                    />
-                    {/* <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
-                        {item.content}
-                    </Paragraph> */}
-                </List.Item>
+                    >
+                        <List.Item.Meta
+                            title={
+                                <Title level={4}>{item.title}</Title>
+                            }
+                            description={
+                                <>
+                                    {/* <Avatar src={'https://www.xiongyuchi.top/img/avatar.jpg'} /> */}
+                                    <CalendarOutlined /> {dayjs(item.createdAt).format('发布于 YYYY年MM月')}
+                                </>
+                            }
+
+                        />
+                        <Viewer
+                            initialValue={item.content.substr(0, 200)}
+                            initialEditType="markdown" />
+                        <Button type="link" className={styles["show-all-btn"]}>查看全文</Button>
+                    </List.Item>
+                </Link>
+
             )}
         />
     );

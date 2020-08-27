@@ -6,9 +6,10 @@
 
 import axios from 'axios';
 import { message } from 'antd';
+import history from './history';
 
 const instance = axios.create({
-    baseURL: 'http://blog.xiongyuchi.top',
+    baseURL: process.env.NODE_ENV === "development" ? 'http://localhost:4000' : 'http://blog.xiongyuchi.top',
     headers: {
         'Accept': 'application/json'
     }
@@ -29,10 +30,14 @@ instance.interceptors.response.use(config => {
     return config.data;
 }, err => {
     // * Http 401 给用户提示，并在3秒后跳转登录页
-    if (err.response.status === 401) {
+    if (err.response.status === 500) {
+        message.error(`服务器异常！请稍后重试！`, 3).then(() => {
+            history.push('/error');
+        });
+    } else if (err.response.status === 401) {
         message.error(`${err.response.data.message}，请登录重试！`, 3).then(() => {
             localStorage.removeItem('user');
-            window.location.href = '/login';
+            history.push('/login');
         });
     } else {
         message.error(err.response.data.message);
