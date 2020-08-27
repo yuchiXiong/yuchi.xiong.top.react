@@ -9,7 +9,7 @@ import { message } from 'antd';
 import history from './history';
 
 const instance = axios.create({
-    baseURL: process.env.NODE_ENV === "development" ? 'http://localhost:4000' : 'http://blog.xiongyuchi.top',
+    baseURL: process.env.NODE_ENV === "development" ? 'http://localhost:4000' : 'https://blog.xiongyuchi.top',
     headers: {
         'Accept': 'application/json'
     }
