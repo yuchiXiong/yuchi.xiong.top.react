@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { List, Typography, Button } from 'antd';
+import { List, Button } from 'antd';
 import { Viewer } from '@toast-ui/react-editor';
 import { CalendarOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 import styles from './index.module.scss';
-
-const { Title } = Typography;
 
 // const IconText = ({ icon, text }) => (
 //     <Space>
@@ -59,9 +57,7 @@ const BlogList = props => {
                         }
                     >
                         <List.Item.Meta
-                            title={
-                                <Title level={4}>{item.title}</Title>
-                            }
+                            title={item.title}
                             description={
                                 <>
                                     {/* <Avatar src={'https://www.xiongyuchi.top/img/avatar.jpg'} /> */}

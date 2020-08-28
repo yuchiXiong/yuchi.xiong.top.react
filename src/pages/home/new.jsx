@@ -94,13 +94,13 @@ const BlogNew = props => {
                                 ...blog,
                                 title: e.target.value
                             })}
-                            placeholder='Please input your blog title !' />
+                            placeholder='博客标题' />
                         <Editor
                             ref={mdRef}
                             initialValue={blog.content}
                             onChange={handleEditorChange}
                             previewStyle="vertical"
-                            height="100%"
+                            height="80vh"
                             initialEditType="markdown"
                             useCommandShortcut={true}
                             toolbarItems={[

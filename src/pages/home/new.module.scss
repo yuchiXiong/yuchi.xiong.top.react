@@ -1,11 +1,9 @@
-// .editor {
-//   position: fixed;
-//   z-index: 101;
-//   width: 50%;
-//   height: 100%;
-// }
 :global(.tui-editor-defaultUI-toolbar) {
   display: flex;
+}
+
+:global(.te-preview) {
+  background: #fff;
 }
 
 :global(.tui-scrollsync.active),
@@ -13,4 +11,7 @@
   display: none !important;
 }
 
-.input-title {}
+// .input-title {
+//   border-top-left-radius: 10px;
+//   border-top-right-radius: 10px;
+// }

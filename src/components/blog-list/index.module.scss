@@ -3,6 +3,11 @@
     border-radius: 10px;
 }
 
+:global(.ant-list-item-meta-title) {
+    font-size: 20px !important;
+    font-weight: 500 !important;
+}
+
 .list-item {
     margin: 12px 0;
     background-color: #fff;
