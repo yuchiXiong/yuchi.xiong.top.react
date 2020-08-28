@@ -1,4 +1,8 @@
-import { UPDATE_LIST, UPDATE_ITEM, ADD_ITEM } from './constants';
+import {
+    UPDATE_LIST,
+    UPDATE_ITEM,
+    ADD_ITEM
+} from './constants';
 
 const defaultState = {
     // hots: [
@@ -44,13 +48,15 @@ const reducer = (state = defaultState, action) => {
             return {
                 ...state,
                 list: action.list,
-                total: action.total
+                    total: action.total
             };
         case UPDATE_ITEM:
             return {
                 ...state,
                 list: [
-                    ...state.list.filter(item => parseInt(item.id) !== parseInt(action.blog.id)),
+                    ...state.list.filter(item => {
+                        return action.blog === null ? null : parseInt(item.id) !== parseInt(action.blog.id)
+                    }),
                     action.blog
                 ]
             };

@@ -16,7 +16,6 @@ const Login = props => {
 
     const { userInfo } = props;
     const { Login } = props;
-    console.log((userInfo || localStorage.getItem('user')) ? 1 : 2);
 
     const onFinish = values => {
         Login(values.account, values.password);

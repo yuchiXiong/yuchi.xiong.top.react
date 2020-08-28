@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { List, Typography, Space, Avatar, Button } from 'antd';
+import { List, Typography, Button } from 'antd';
 import { Viewer } from '@toast-ui/react-editor';
-import { CalendarOutlined, MessageOutlined, LikeOutlined, StarOutlined, EyeOutlined } from '@ant-design/icons';
+import { CalendarOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 import styles from './index.module.scss';
@@ -24,6 +24,7 @@ const BlogList = props => {
 
     return (
         <List
+            // loading={true}
             className={styles['list']}
             itemLayout="vertical"
             size="large"
@@ -39,7 +40,6 @@ const BlogList = props => {
             dataSource={list}
             renderItem={item => (
                 <Link
-                    loading={true}
                     key={`blog-home-list-item-${item.id}`}
                     to={`/blog/${item.id}`}>
                     <List.Item

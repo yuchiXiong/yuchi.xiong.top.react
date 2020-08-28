@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -19,6 +19,7 @@ const BlogShow = props => {
 
     const { current } = props;
     const { fetchBlog } = props;
+    const [isNotPersent, setIsNotPersent] = useState(false);
     const { id } = useParams();
     const viewerRef = useRef(null);
 
@@ -29,41 +30,51 @@ const BlogShow = props => {
     }, [id, fetchBlog]);
 
     useEffect(() => {
-        current && viewerRef.current.getInstance().setMarkdown(current.content);
+        if (current === null) {
+            setIsNotPersent(true);
+        } else {
+            current && viewerRef.current.getInstance().setMarkdown(current.content);
+        }
     }, [current]);
 
     return (
         <>
             {
-                current ?
-                    <>
-                        <Helmet>
-                            <title>{`${current.title} | ${websiteConfig.name}`}</title>
-                            <meta name="description" content={`${current.title} | ${websiteConfig.name}`} />
-                        </Helmet>
-                        <Typography className={styles['blog']}>
-                            <Title>{current.title}</Title>
-                            <Paragraph>发布时间：{dayjs(current.createdAt).format('YYYY年MM月DD日 HH:mm:ss')}</Paragraph>
-                            <Viewer
-                                ref={viewerRef}
-                                initialValue={current.content}
-                                previewStyle="vertical"
-                                height="auto"
-                                initialEditType="markdown"
-                                useCommandShortcut={true}
-                                hideModeSwitch={true}
-                                viewer={true}
-                            />
-                        </Typography>
-                    </> :
-                    <h1>加载中...</h1>
+                isNotPersent ?
+                    <h1>资源不存在...</h1> :
+                    current ?
+                        <>
+                            <Helmet>
+                                <title>{`${current.title} | ${websiteConfig.name}`}</title>
+                                <meta name="description" content={`${current.title} | ${websiteConfig.name}`} />
+                            </Helmet>
+                            <Typography className={styles['blog']}>
+                                <Title>{current.title}</Title>
+                                <Paragraph>发布时间：{dayjs(current.createdAt).format('YYYY年MM月DD日 HH:mm:ss')}</Paragraph>
+                                <Viewer
+                                    ref={viewerRef}
+                                    initialValue={current.content}
+                                    previewStyle="vertical"
+                                    height="auto"
+                                    initialEditType="markdown"
+                                    useCommandShortcut={true}
+                                    hideModeSwitch={true}
+                                    viewer={true}
+                                />
+                            </Typography>
+                        </> :
+                        <h1>加载中...</h1>
             }
         </>
     );
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    current: state.home.list.filter(item => parseInt(item.id) === parseInt(ownProps.match.params.id))[0]
+    current: state.home.list.filter(item => {
+        // ? 资源不存在时，current为null
+        // ? 资源正在加载时，则current为空对象{}
+        return item === null ? [item] : (parseInt(item.id) === parseInt(ownProps.match.params.id))
+    })[0]
 });
 
 const mapDispatchToProps = dispatch => ({

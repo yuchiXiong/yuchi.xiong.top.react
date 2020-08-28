@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { Carousel, Typography } from 'antd';
-import CalendarHeatmap from 'react-calendar-heatmap';
+// import { Typography } from 'antd';
 import websiteConfig from '@/config/website';
 
 import BlogList from '@/components/blog-list';
 
 import 'react-calendar-heatmap/dist/styles.css';
-import styles from './index.module.scss';
+// import styles from './index.module.scss';
 
 import { getBlogs } from './store/action';
 
-const { Title } = Typography;
+// const { Title } = Typography;
 
 const Home = props => {
 

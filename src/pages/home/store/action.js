@@ -1,7 +1,13 @@
-import { Blogs } from '@/utils/api';
+import {
+    Blogs
+} from '@/utils/api';
 import RetureCode from '@/utils/return-code';
 import history from '@/utils/history';
-import { UPDATE_LIST, UPDATE_ITEM, ADD_ITEM } from './constants';
+import {
+    UPDATE_LIST,
+    UPDATE_ITEM,
+    ADD_ITEM
+} from './constants';
 
 
 // * 拉取博客列表
@@ -30,7 +36,11 @@ const fetchBlog = blog => ({
 const getBlog = id => {
     return dispatch => {
         return Blogs.show(id).then(res => {
-            dispatch(fetchBlog(res.data.blog));
+            if (res.data.code === RetureCode.Resource_Not_Found) {
+                dispatch(fetchBlog(null));
+            } else {
+                dispatch(fetchBlog(res.data.blog));
+            }
         });
     };
 };

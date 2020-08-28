@@ -1,73 +1,71 @@
 import React from 'react';
 
-const Login = React.lazy(() => import('@/pages/user/login'));
+import Layout from '@/layouts';
 
-const Home = React.lazy(() => import('@/pages/home'));
-
-const BlogShow = React.lazy(() => import('@/pages/home/show'));
-const BlogNew = React.lazy(() => import('@/pages/home/new'));
-
-const Archive = React.lazy(() => import('@/pages/archive'));
-const Category = React.lazy(() => import('@/pages/category'));
-const Tag = React.lazy(() => import('@/pages/tag'));
-const About = React.lazy(() => import('@/pages/about'));
-
-const ServerError = React.lazy(() => import('@/pages/500'));
-const NotFound = React.lazy(() => import('@/pages/404'));
+import Login from '@/pages/user/login';
+import ServerError from '@/pages/500';
+import NotFound from '@/pages/404'
 
 const routes = [
     {
-        path: '/',
-        component: Home,
-        exact: true,
-        key: 'home'
+        component: Layout,
+        routes: [
+            {
+                path: '/',
+                component: React.lazy(() => import('@/pages/home')),
+                exact: true,
+                key: 'home'
+            },
+            {
+                path: '/blog/new',
+                component: React.lazy(() => import('@/pages/home/new')),
+                exact: true,
+                key: 'blog-new'
+            },
+            {
+                path: '/blog/:id',
+                component: React.lazy(() => import('@/pages/home/show')),
+                key: 'blog-show'
+            },
+            {
+                path: '/archive',
+                component: React.lazy(() => import('@/pages/archive')),
+                key: 'archive'
+            },
+            {
+                path: '/category',
+                component: React.lazy(() => import('@/pages/category')),
+                key: 'category'
+            },
+            {
+                path: '/tag',
+                component: React.lazy(() => import('@/pages/tag')),
+                key: 'tag'
+            },
+            {
+                path: '/about',
+                component: React.lazy(() => import('@/pages/about')),
+                key: 'about'
+            },
+            {
+                path: '/login',
+                excat: true,
+                component: Login,
+                key: 'login'
+            },
+            {
+                path: '/error',
+                component: ServerError,
+                key: 'server-error'
+            },
+            {
+                path: '*',
+                component: NotFound,
+                key: 'not-found'
+            },
+        ]
     },
-    {
-        path: '/login',
-        component: Login,
-        key: 'login'
-    },
-    {
-        path: '/blog/new',
-        component: BlogNew,
-        exact: true,
-        key: 'blog-new'
-    },
-    {
-        path: '/blog/:id',
-        component: BlogShow,
-        key: 'blog-show'
-    },
-    {
-        path: '/archive',
-        component: Archive,
-        key: 'archive'
-    },
-    {
-        path: '/category',
-        component: Category,
-        key: 'category'
-    },
-    {
-        path: '/tag',
-        component: Tag,
-        key: 'tag'
-    },
-    {
-        path: '/about',
-        component: About,
-        key: 'about'
-    },
-    {
-        path: '/error',
-        component: ServerError,
-        key: 'server-error'
-    },
-    {
-        path: '*',
-        component: NotFound,
-        key: 'not-found'
-    }
+
 ];
 
 export default routes;

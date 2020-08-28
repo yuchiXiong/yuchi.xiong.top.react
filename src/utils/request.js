@@ -5,11 +5,15 @@
 */
 
 import axios from 'axios';
-import { message } from 'antd';
+import {
+    message
+} from 'antd';
 import history from './history';
 
 const instance = axios.create({
-    baseURL: process.env.NODE_ENV === "development" ? 'http://localhost:4000' : 'https://blog.xiongyuchi.top',
+    // baseURL: process.env.NODE_ENV === "development" ? 'http://localhost:4000' : 'https://blog.xiongyuchi.top',
+    // TODO: 仅测试
+    baseURL: 'https://blog.xiongyuchi.top',
     headers: {
         'Accept': 'application/json'
     }
@@ -40,8 +44,8 @@ instance.interceptors.response.use(config => {
             history.push('/login');
         });
     } else {
-        message.error(err.response.data.message);
-        return err.response.data;
+        // message.error(err.response.data.message);
+        return err.response;
     }
 });
 
