@@ -12,19 +12,19 @@ const routes = [
         routes: [
             {
                 path: '/',
-                component: React.lazy(() => import('@/pages/home')),
+                component: React.lazy(() => import('@/pages/blog')),
                 exact: true,
                 key: 'home'
             },
             {
                 path: '/blog/new',
-                component: React.lazy(() => import('@/pages/home/new')),
+                component: React.lazy(() => import('@/pages/blog/new')),
                 exact: true,
                 key: 'blog-new'
             },
             {
                 path: '/blog/:id',
-                component: React.lazy(() => import('@/pages/home/show')),
+                component: React.lazy(() => import('@/pages/blog/show')),
                 key: 'blog-show'
             },
             {

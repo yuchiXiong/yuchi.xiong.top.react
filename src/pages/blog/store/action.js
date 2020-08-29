@@ -9,7 +9,6 @@ import {
     ADD_ITEM
 } from './constants';
 
-
 // * 拉取博客列表
 const fetchBlogList = (list, total) => ({
     type: UPDATE_LIST,
@@ -37,7 +36,10 @@ const getBlog = id => {
     return dispatch => {
         return Blogs.show(id).then(res => {
             if (res.data.code === RetureCode.Resource_Not_Found) {
-                dispatch(fetchBlog(null));
+                dispatch(fetchBlog({
+                    id,
+                    error: '资源不存在'
+                }));
             } else {
                 dispatch(fetchBlog(res.data.blog));
             }

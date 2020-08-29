@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -19,7 +19,6 @@ const BlogShow = props => {
 
     const { current } = props;
     const { fetchBlog } = props;
-    const [isNotPersent, setIsNotPersent] = useState(false);
     const { id } = useParams();
     const viewerRef = useRef(null);
 
@@ -30,25 +29,24 @@ const BlogShow = props => {
     }, [id, fetchBlog]);
 
     useEffect(() => {
-        if (current === null) {
-            setIsNotPersent(true);
-        } else {
-            current && viewerRef.current.getInstance().setMarkdown(current.content);
-        }
+        current && !(current.error) && viewerRef.current.getInstance().setMarkdown(current.content);
     }, [current]);
+
+    const title = current ? current.error ? current.error : current.title : '加载中……';
 
     return (
         <>
-            {
-                isNotPersent ?
-                    <h1>资源不存在...</h1> :
+            <Helmet>
+                <title>{`${title} | ${websiteConfig.name}`}</title>
+                <meta name="description" content={`${title} | ${websiteConfig.name}`} />
+            </Helmet>
+            <Typography className={styles['blog']}>
+
+                {
                     current ?
-                        <>
-                            <Helmet>
-                                <title>{`${current.title} | ${websiteConfig.name}`}</title>
-                                <meta name="description" content={`${current.title} | ${websiteConfig.name}`} />
-                            </Helmet>
-                            <Typography className={styles['blog']}>
+                        current.error ?
+                            <h1>{current.error}</h1> :
+                            <>
                                 <Title>{current.title}</Title>
                                 <Paragraph>发布时间：{dayjs(current.createdAt).format('YYYY年MM月DD日 HH:mm:ss')}</Paragraph>
                                 <Viewer
@@ -61,20 +59,16 @@ const BlogShow = props => {
                                     hideModeSwitch={true}
                                     viewer={true}
                                 />
-                            </Typography>
-                        </> :
+                            </> :
                         <h1>加载中...</h1>
-            }
+                }
+            </Typography>
         </>
     );
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    current: state.home.list.filter(item => {
-        // ? 资源不存在时，current为null
-        // ? 资源正在加载时，则current为空对象{}
-        return item === null ? [item] : (parseInt(item.id) === parseInt(ownProps.match.params.id))
-    })[0]
+    current: state.blog.list[ownProps.match.params.id],
 });
 
 const mapDispatchToProps = dispatch => ({
