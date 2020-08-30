@@ -6,14 +6,15 @@
 
 import axios from 'axios';
 import {
-    message
+    message,
+    notification
 } from 'antd';
 import history from './history';
 
 const instance = axios.create({
-    // baseURL: process.env.NODE_ENV === "development" ? 'http://localhost:4000' : 'https://blog.xiongyuchi.top',
-    // TODO: 仅测试
-    baseURL: 'https://blog.xiongyuchi.top',
+    baseURL: process.env.NODE_ENV === "development" ? 'http://localhost:4000' : 'https://blog.xiongyuchi.top',
+    // // TODO: 仅测试
+    // baseURL: 'https://blog.xiongyuchi.top',
     headers: {
         'Accept': 'application/json'
     }
@@ -33,19 +34,30 @@ instance.interceptors.request.use(config => {
 instance.interceptors.response.use(config => {
     return config.data;
 }, err => {
-    // * Http 401 给用户提示，并在3秒后跳转登录页
-    if (err.response.status === 500) {
-        message.error(`服务器异常！请稍后重试！`, 3).then(() => {
-            history.push('/error');
+    if (!err.response) {
+        notification.error({
+            message: '从服务器拉取数据异常！',
+            description:
+                '当前无法从服务器获取响应，请检查您的网络是否通畅或联系网站管理员。',
+            placement: 'topRight',
+            duration: null
         });
-    } else if (err.response.status === 401) {
-        message.error(`${err.response.data.message}，请登录重试！`, 3).then(() => {
-            localStorage.removeItem('user');
-            history.push('/login');
-        });
+        return false;
     } else {
-        // message.error(err.response.data.message);
-        return err.response;
+        // * Http 401 给用户提示，并在3秒后跳转登录页
+        if (err.response.status === 500) {
+            message.error(`服务器异常！请稍后重试！`, 3).then(() => {
+                history.push('/error');
+            });
+        } else if (err.response.status === 401) {
+            message.error(`${err.response.data.message}，请登录重试！`, 3).then(() => {
+                localStorage.removeItem('user');
+                history.push('/login');
+            });
+        } else {
+            // message.error(err.response.data.message);
+            return err.response;
+        }
     }
 });
 
