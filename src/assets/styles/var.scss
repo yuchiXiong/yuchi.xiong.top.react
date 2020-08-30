@@ -12,10 +12,13 @@ $lime-color: (1: #fcffe6,
 
 
 // $primary-color: map-get($lime-color, 8);
-$primary-color: #434137;
+// $primary-color: #434137;
+$primary-color: #980905;
+
 // $text-color: map-get($lime-color, 10);
 $text-color: #434137;
 
 $block-color: map-get($lime-color, 4);
 $container-width: 1200px;
-$background-color: map-get($lime-color, 1);
+// $background-color: map-get($lime-color, 1);
+$background-color: rgba(229, 229, 229, 0.4)
