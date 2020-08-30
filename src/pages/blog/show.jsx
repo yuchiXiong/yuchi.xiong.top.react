@@ -9,7 +9,7 @@ import websiteConfig from '@/config/website';
 
 import { getBlog } from './store/action';
 
-import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 // import 'Assets/styles/markdown.css';
 import styles from './show.module.scss';
 

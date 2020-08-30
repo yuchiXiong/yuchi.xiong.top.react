@@ -1,10 +1,12 @@
 import {
+    ON_LOADING,
     UPDATE_LIST,
     UPDATE_ITEM,
     ADD_ITEM
 } from './constants';
 
 const defaultState = {
+    loading: true,
     hots: [],
     list: {},
     total: {
@@ -19,6 +21,11 @@ const defaultState = {
 //   拉取完成后将数据合并到store里，下一次进入可以使用缓存
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
+        case ON_LOADING:
+            return {
+                ...state,
+                loading: action.flag
+            };
         case UPDATE_LIST:
             // * 在store中存入一个将blog.id作为key的对象
             // * 方便查找对应的对象

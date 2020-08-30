@@ -4,10 +4,17 @@ import {
 import RetureCode from '@/utils/return-code';
 import history from '@/utils/history';
 import {
+    ON_LOADING,
     UPDATE_LIST,
     UPDATE_ITEM,
     ADD_ITEM
 } from './constants';
+
+// * 加载中 && 停止加载
+const toggleLoading = flag => ({
+    type: ON_LOADING,
+    flag
+});
 
 // * 拉取博客列表
 const fetchBlogList = (list, total) => ({
@@ -18,10 +25,12 @@ const fetchBlogList = (list, total) => ({
 
 const getBlogs = page => {
     return dispatch => {
+        dispatch(toggleLoading(true));
         return Blogs.index(page).then(res => {
             if (res) {
                 dispatch(fetchBlogList(res.data.blogs, res.data.total));
             }
+            dispatch(toggleLoading(false));
         });
     };
 };
