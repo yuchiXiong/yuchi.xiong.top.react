@@ -9,7 +9,7 @@
     top: 0;
     width: 100%;
     z-index: 100;
-    padding-left:24px
+    padding-left: 24px
 }
 
 
@@ -28,8 +28,10 @@
     }
 }
 
-.container:hover .github {
-    right: 12px;
+@media screen and (min-height: 768px) {
+    .container:hover .github {
+        right: 12px;
+    }
 }
 
 .header {
