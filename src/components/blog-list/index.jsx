@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { List, Row, Col, Skeleton, Avatar } from 'antd';
+import { List, Row, Col, Skeleton } from 'antd';
 import { Viewer } from '@toast-ui/react-editor';
 import { CalendarOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
@@ -16,7 +16,6 @@ import styles from './index.module.scss';
 const BlogList = props => {
 
     const { list, total, loading } = props;
-    console.log(loading);
     const { togglePage } = props;
 
     return (

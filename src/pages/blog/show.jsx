@@ -3,14 +3,13 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Viewer } from '@toast-ui/react-editor';
-import { Typography } from "antd";
+import { Typography, Skeleton } from "antd";
 import dayjs from 'dayjs';
 import websiteConfig from '@/config/website';
 
 import { getBlog } from './store/action';
 
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-// import 'Assets/styles/markdown.css';
 import styles from './show.module.scss';
 
 const { Title, Paragraph } = Typography;
@@ -41,7 +40,6 @@ const BlogShow = props => {
                 <meta name="description" content={`${title} | ${websiteConfig.name}`} />
             </Helmet>
             <Typography className={styles['blog']}>
-
                 {
                     current ?
                         current.error ?
@@ -60,7 +58,7 @@ const BlogShow = props => {
                                     viewer={true}
                                 />
                             </> :
-                        <h1>加载中...</h1>
+                        <Skeleton active paragraph={{ rows: 20 }} title round={true} />
                 }
             </Typography>
         </>

@@ -1,4 +1,8 @@
-.blog{
+:global(.ant-skeleton-paragraph li) {
+    width: inherit !important;
+}
+
+.blog {
     background: #fff;
     padding: 16px 24px;
     border-radius: 10px;

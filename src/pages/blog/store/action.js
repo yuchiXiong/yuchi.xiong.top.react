@@ -45,10 +45,7 @@ const getBlog = id => {
     return dispatch => {
         return Blogs.show(id).then(res => {
             if (res.data.code === RetureCode.Resource_Not_Found) {
-                dispatch(fetchBlog({
-                    id,
-                    error: '资源不存在'
-                }));
+                history.push('/not-found!');
             } else {
                 dispatch(fetchBlog(res.data.blog));
             }
