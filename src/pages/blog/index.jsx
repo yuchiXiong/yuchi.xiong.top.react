@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-// import { Typography } from 'antd';
+import { BackTop } from 'antd';
+import { StepBackwardOutlined } from '@ant-design/icons';
 import websiteConfig from '@/config/website';
 
 import BlogList from '@/components/blog-list';
 
-import 'react-calendar-heatmap/dist/styles.css';
-// import styles from './index.module.scss';
+// import 'react-calendar-heatmap/dist/styles.css';
+import styles from './index.module.scss';
 
 import { getBlogs } from './store/action';
 
@@ -56,6 +57,12 @@ const Home = props => {
                     大堰河，今天我看到雪使我想起了你。`}</Title>
             </div> */}
             <BlogList list={Object.values(list)} total={total} togglePage={togglePage} />
+            <BackTop>
+                <div className={styles['back-top-btn']}>
+                    <StepBackwardOutlined rotate={90} style={{ fontSize: 36 }} />
+                </div>
+                {/* <div style={style}>UP</div> */}
+            </BackTop>
         </>
     );
 };

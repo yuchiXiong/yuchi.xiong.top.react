@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Menu, Typography, Tooltip } from 'antd';
+import { Menu, Typography, Tooltip, Row, Col, Avatar } from 'antd';
 import { HomeFilled, MehFilled, GithubOutlined } from '@ant-design/icons';
 // import { HomeFilled, FolderFilled, TagsFilled, ContactsFilled, MehFilled, BookFilled } from '@ant-design/icons';
 import websiteConfig from '@/config/website';
@@ -12,22 +12,12 @@ const { Title } = Typography;
 const Header = () => {
 
     const [current, setCurrent] = useState('home');
-    const [onTop, setOnTop] = useState(false);
     const history = useHistory();
     const location = useLocation();
 
     useEffect(() => {
         setCurrent(location.pathname);
     }, [location]);
-
-    useEffect(() => {
-        window.addEventListener('scroll', e => {
-            setOnTop(window.scrollY > 0);
-        });
-        return () => {
-            window.removeEventListener('scroll');
-        };
-    }, []);
 
     const handleClick = e => {
         setCurrent(e.key);
@@ -36,15 +26,20 @@ const Header = () => {
 
     return (
         <header
-            className={styles.container}
-            style={{ background: onTop && '#fff', borderBottom: onTop && '2px solid #FDCE4E' }}
-        >
+            className={styles.container}>
             <section className={styles.header}>
                 <Title
                     className={styles.title}
                     onClick={() => history.push('/')}
                     level={3}>
-                    {websiteConfig.name}
+                    <Row>
+                        <Col md={24} sm={0} xs={0}>
+                            {websiteConfig.name}
+                        </Col>
+                        <Col md={0} sm={24}>
+                            <Avatar src={websiteConfig.avatar} />
+                        </Col>
+                    </Row>
                 </Title>
                 <Menu
                     className={styles.menu}

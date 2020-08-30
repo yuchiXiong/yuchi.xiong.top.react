@@ -31,3 +31,15 @@
         color: $text-color;
     }
 }
+
+.back-top-btn {
+    background-color: $primary-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+
+    svg {
+        fill: #fff;
+    }
+}

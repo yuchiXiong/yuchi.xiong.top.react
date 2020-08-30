@@ -1,3 +1,5 @@
+@import 'Assets/styles/var.scss';
+
 :global(.ant-list-empty-text) {
     background-color: #fff;
     border-radius: 10px;
@@ -6,15 +8,60 @@
 :global(.ant-list-item-meta-title) {
     font-size: 20px !important;
     font-weight: 500 !important;
+    color: $primary-color !important;
+    transition: color 450ms;
+}
+
+:global(.ant-list-item-meta-content) {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+:global(.tui-editor-contents pre) {
+    margin: 2px 0 8px;
+    padding: 18px;
+    background-color: #f5f7f8;
+}
+
+:global(.tui-editor-contents code) {
+    color: #c1798b;
+    background-color: #f9f2f4;
+    padding: 2px 3px;
+    letter-spacing: -0.3px;
+    border-radius: 2px;
+}
+
+:global(.tui-editor-contents pre code) {
+    padding: 0;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
 }
 
 .list-item {
     margin: 12px 0;
     background-color: #fff;
     border-radius: 10px;
+    // display: flex;
+    // flex-direction: column;
+
+    .blog-content {
+        display: flex;
+
+        .blog-info {
+            flex: 1;
+            margin-right: auto;
+            padding-right: 24px;
+        }
+    }
 }
 
 .show-all-btn {
-    color: #008dff;
+    color: $primary-color;
     padding: 0;
 }

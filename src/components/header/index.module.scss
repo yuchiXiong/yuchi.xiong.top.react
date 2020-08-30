@@ -1,16 +1,17 @@
-@import '../../assets/styles/var.scss';
+@import 'Assets/styles/var.scss';
 
 .container {
     display: flex;
     justify-content: center;
-    background-color: #fffa;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 100;
-    transition: border-bottom 600ms;
-    transition: background 600ms;
+    padding-left:24px
 }
+
 
 .github {
     display: flex;
@@ -35,7 +36,7 @@
     display: flex;
     max-width: $container-width;
     width: 100%;
-    
+
     // justify-content: space-between;
     // align-items: center;
 }
