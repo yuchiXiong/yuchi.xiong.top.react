@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { Redirect } from 'react-router-dom';
 import { Input } from 'antd';
 import { createBlog } from './store/action';
+import request from '@/utils/request';
 // import { SaveOutlined } from '@ant-design/icons';
 
 import { Editor } from '@toast-ui/react-editor';
@@ -68,6 +69,10 @@ const BlogNew = props => {
     };
 
     // useEffect(() => {
+    //     console.log(mdRef.current.getInstance())
+    // });
+
+    // useEffect(() => {
     //     const mdInstance = mdRef.current.getInstance();
     //     const mdToolbarInstance = mdInstance.getUI().getToolbar();
 
@@ -103,6 +108,28 @@ const BlogNew = props => {
                             height="80vh"
                             initialEditType="markdown"
                             useCommandShortcut={true}
+                            hooks={
+                                {
+                                    addImageBlobHook: (file, callback, sources) => {
+
+                                        const formData = new FormData();
+                                        formData.append("file", file, file.name);
+                                        formData.append("id", 1);
+
+                                        request.post('/blog_photos', formData, {
+                                            headers: {
+                                                'Accept': 'application/json',
+                                                'User-Token': localStorage.getItem('user')
+                                            }
+                                        }).then(res => {
+                                            // callback();
+                                            callback(res.data.photoURL, '图片');
+                                        });
+
+
+                                    }
+                                }
+                            }
                             toolbarItems={[
                                 'heading',
                                 'bold',

@@ -34,6 +34,7 @@ instance.interceptors.request.use(config => {
 instance.interceptors.response.use(config => {
     return config.data;
 }, err => {
+    console.log(err);
     if (!err.response) {
         notification.error({
             message: '从服务器拉取数据异常！',
@@ -44,16 +45,16 @@ instance.interceptors.response.use(config => {
         });
         return false;
     } else {
+        console.dir(err);
         // * Http 401 给用户提示，并在3秒后跳转登录页
         if (err.response.status === 500) {
-            message.error(`服务器异常！请稍后重试！`, 3).then(() => {
-                history.push('/error');
-            });
+            history.push('/error');
         } else if (err.response.status === 401) {
             message.error(`${err.response.data.message}，请登录重试！`, 3).then(() => {
                 localStorage.removeItem('user');
                 history.push('/login');
             });
+            return false;
         } else {
             // message.error(err.response.data.message);
             return err.response;

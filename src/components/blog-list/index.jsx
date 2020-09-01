@@ -81,7 +81,7 @@ const BlogList = props => {
                                                         initialEditType="markdown" />
                                                     {/* <Button type="link" className={styles["show-all-btn"]}>查看全文</Button> */}
                                                 </section>
-                                                {
+                                                {/* {
                                                     Math.random() > 0.5 ?
                                                         <section>
                                                             <img
@@ -91,12 +91,12 @@ const BlogList = props => {
                                                             />
                                                         </section> :
                                                         null
-                                                }
+                                                } */}
                                             </section>
                                         </Col>
                                         <Col md={0} sm={24}>
                                             <section className={styles['blog-content']} style={{ flexDirection: 'column' }}>
-                                                {
+                                                {/* {
                                                     Math.random() > 0.5 ?
                                                         <section>
                                                             <img
@@ -107,7 +107,7 @@ const BlogList = props => {
                                                             />
                                                         </section> :
                                                         null
-                                                }
+                                                } */}
                                                 <section className={styles['blog-info']}>
                                                     <Viewer
                                                         initialValue={item.content.substr(0, 100)}
