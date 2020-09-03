@@ -9,6 +9,7 @@ const defaultState = {
     loading: true,
     hots: [],
     list: {},
+    sort: [],
     total: {
         count: 0,
         current: 1
@@ -33,7 +34,10 @@ const reducer = (state = defaultState, action) => {
             action.list.map(item => list[item.id] = item);
             return {
                 ...state,
-                list: list,
+                list: {
+                    ...list
+                },
+                sort: [...action.list.map(item => item.id)],
                 total: action.total
             };
         case UPDATE_ITEM:
@@ -45,9 +49,12 @@ const reducer = (state = defaultState, action) => {
                 }
             };
         case ADD_ITEM:
+            state.list[action.blog.id] = action.blog;
             return {
                 ...state,
-                list: state.list.concat(action.blog)
+                list: {
+                    ...state.list
+                }
             };
         default:
             return state;

@@ -16,7 +16,7 @@ import { getBlogs } from './store/action';
 
 const Home = props => {
 
-    const { list, total, loading } = props;
+    const { list, total, loading, sort } = props;
     const { getBlogs } = props;
 
     useEffect(() => {
@@ -56,7 +56,7 @@ const Home = props => {
                     你的门前的长了青苔的石椅，
                     大堰河，今天我看到雪使我想起了你。`}</Title>
             </div> */}
-            <BlogList list={Object.values(list)} total={total} togglePage={togglePage} loading={loading} />
+            <BlogList list={sort.map(item => list[item])} total={total} togglePage={togglePage} loading={loading} />
             <BackTop>
                 <div className={styles['back-top-btn']}>
                     <StepBackwardOutlined rotate={90} style={{ fontSize: 36 }} />
@@ -71,6 +71,7 @@ const mapStoreToProps = state => {
     return {
         // hots: state.home.hots,
         loading: state.blog.loading,
+        sort: state.blog.sort,
         list: state.blog.list,
         total: state.blog.total
     };

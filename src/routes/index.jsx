@@ -3,10 +3,17 @@ import React from 'react';
 import Layout from '@/layouts';
 
 import Login from '@/pages/user/login';
+import BlogNew from '@/pages/blog/new';
 import ServerError from '@/pages/500';
-import NotFound from '@/pages/404'
+import NotFound from '@/pages/404';
 
 const routes = [
+    {
+        path: '/blog/new',
+        component: BlogNew,
+        exact: true,
+        key: 'blog-new'
+    },
     {
         component: Layout,
         routes: [
@@ -15,12 +22,6 @@ const routes = [
                 component: React.lazy(() => import('@/pages/blog')),
                 exact: true,
                 key: 'home'
-            },
-            {
-                path: '/blog/new',
-                component: React.lazy(() => import('@/pages/blog/new')),
-                exact: true,
-                key: 'blog-new'
             },
             {
                 path: '/blog/:id',

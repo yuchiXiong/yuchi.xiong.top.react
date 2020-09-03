@@ -62,9 +62,11 @@ const addBlog = blog => ({
 const createBlog = blog => {
     return dispatch => {
         return Blogs.create(blog).then(res => {
-            if (res.code === RetureCode.Success) {
-                dispatch(addBlog(res.data.blog));
-                history.push(`/blog/${res.data.blog.id}`);
+            if (res) {
+                if (res.code === RetureCode.Success) {
+                    dispatch(addBlog(res.data.blog));
+                    history.push(`/blog/${res.data.blog.id}`);
+                }
             }
         });
     };
