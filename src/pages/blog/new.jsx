@@ -26,7 +26,7 @@ import styles from './new.module.scss';
 
 const { SubMenu } = Menu;
 const { Sider, Content } = Layout;
-const { Text, Title, Paragraph } = Typography;
+const { Text, Title } = Typography;
 
 function createPublisherButton() {
     const button = document.createElement('button');
