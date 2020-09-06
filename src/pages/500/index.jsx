@@ -6,7 +6,9 @@ import styles from './server-error.module.scss';
 
 const { Title, Text } = Typography;
 
-const ServerError = () => {
+const ServerError = props => {
+    console.log(props);
+    // console.log(props.history.location.state.from);
     return <div className={styles['server-error']}>
         <img src='./500.jpg' alt='服务器又双叒叕崩啦……' />
         <section className={styles['description']}>

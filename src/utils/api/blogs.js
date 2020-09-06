@@ -12,32 +12,20 @@ const show = id => {
     return request.get(`/blogs/${id}`);
 };
 
-const create = (params, userToken) => {
+const create = params => {
     return request.post(`/blogs`, {
         ...params
-    }, {
-        headers: {
-            'User-Token': userToken
-        }
     });
 };
 
-const update = (id, params, userToken) => {
+const update = (id, params) => {
     return request.put(`/blogs/${id}`, {
         ...params
-    }, {
-        headers: {
-            'User-Token': userToken
-        }
     });
 };
 
-const destory = (id, userToken) => {
-    return request.delete(`/blogs/${id}`, {
-        headers: {
-            'User-Token': userToken
-        }
-    });
+const destory = id => {
+    return request.delete(`/blogs/${id}`);
 };
 
 export {
@@ -46,4 +34,4 @@ export {
     create,
     update,
     destory
-}
+};

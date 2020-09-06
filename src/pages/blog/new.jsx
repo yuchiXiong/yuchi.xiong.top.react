@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { Input, Menu, Layout, Button, Typography } from 'antd';
 import { Editor } from '@toast-ui/react-editor';
 import { createBlog } from './store/action';
 import { getBlogs } from './store/action';
 
-import request from '@/utils/request';
+import { BlogPhotos } from '@/utils/api';
+
 import { LeftOutlined, PlusOutlined } from '@ant-design/icons';
 
 import websiteConfig from '@/config/website';
@@ -28,6 +29,8 @@ const { SubMenu } = Menu;
 const { Sider, Content } = Layout;
 const { Text, Title } = Typography;
 
+const ALI_OSS_DOMAIN = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com';
+
 function createPublisherButton() {
     const button = document.createElement('button');
 
@@ -41,6 +44,7 @@ const BlogNew = props => {
 
     const { userInfo, list, sort } = props;
     const { releaseBlog, getBlogs } = props;
+    const history = useHistory();
 
     const [blog, setBlog] = useState({
         title: '',
@@ -78,7 +82,9 @@ const BlogNew = props => {
     };
 
     const handleClick = e => {
-        console.log('click ', e);
+        if (e.key === 'return-home') {
+            history.push('/');
+        }
     };
 
     // useEffect(() => {
@@ -104,7 +110,6 @@ const BlogNew = props => {
             </Helmet>
             {
                 (userInfo || JSON.parse(localStorage.getItem('user'))) ?
-
                     <Layout>
                         <Sider
                             className={styles['sider']}
@@ -162,22 +167,16 @@ const BlogNew = props => {
                                 useCommandShortcut={true}
                                 hooks={
                                     {
-                                        addImageBlobHook: (file, callback, sources) => {
+                                        addImageBlobHook: (file, callback) => {
 
+                                            // ? 构建表单参数
                                             const formData = new FormData();
                                             formData.append("file", file, file.name);
-                                            formData.append("blogId", 9);
+                                            formData.append("blogId", 23);
 
-                                            request.post('/blog_photos', formData, {
-                                                headers: {
-                                                    'Accept': 'application/json',
-                                                    'User-Token': localStorage.getItem('user')
-                                                }
-                                            }).then(res => {
-                                                // callback();
-                                                callback('https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com' + res.data.photoURL, '图片');
+                                            BlogPhotos.create(formData).then(res => {
+                                                callback(ALI_OSS_DOMAIN + res.data.photoURL, '图片');
                                             });
-
 
                                         }
                                     }
