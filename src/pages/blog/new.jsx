@@ -25,6 +25,10 @@ import styles from './new.module.scss';
 //     return button;
 // }
 
+// ! 太晚了……明天再弄吧
+// ! 留了个坑：首先这个页面的组件该拆分了，第二点是关于store也要重新设计了
+// ! 发布的模块原来使用的input是非受控组件，为了能够做编辑的部分，改成了受控组件，对应的状态啥的都要调整
+
 const { SubMenu } = Menu;
 const { Sider, Content } = Layout;
 const { Text, Title } = Typography;
@@ -50,6 +54,8 @@ const BlogNew = props => {
         title: '',
         content: ''
     });
+
+    const [title, setTitle] = useState('');
 
     const mdRef = useRef(null);
 
@@ -84,6 +90,11 @@ const BlogNew = props => {
     const handleClick = e => {
         if (e.key === 'return-home') {
             history.push('/');
+        } else if (e.key === 'add-blog-set') {
+        } else {
+            const blog = list[e.key.toString()];
+            setTitle(blog.title);
+            mdRef.current.getInstance().setMarkdown(blog.content);
         }
     };
 
@@ -136,7 +147,7 @@ const BlogNew = props => {
                                             return <Menu.Item
                                                 className={styles['sider-item']}
                                                 title={1111}
-                                                key={`blog-${list[item].id}`}>
+                                                key={list[item].id}>
                                                 <Title level={4} ellipsis style={{ marginBottom: 0 }}>{list[item].title}</Title>
                                                 <Text>字数：{list[item].content.length}</Text>
                                             </Menu.Item>;
@@ -152,10 +163,12 @@ const BlogNew = props => {
                         <Content className={styles['content']}>
                             <Input
                                 styleName={styles['input-title']}
-                                onChange={e => setBlog({
-                                    ...blog,
-                                    title: e.target.value
-                                })}
+                                // onChange={e => setBlog({
+                                //     ...blog,
+                                //     title: e.target.value
+                                // })}
+                                onChange={e => setTitle(e.target.value)}
+                                value={title}
                                 placeholder='博客标题' />
                             <Editor
                                 ref={mdRef}
