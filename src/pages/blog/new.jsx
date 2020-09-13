@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Redirect, useHistory } from 'react-router-dom';
 import { Input, Menu, Layout, Button, Typography } from 'antd';
 import { Editor } from '@toast-ui/react-editor';
-import { createBlog } from './store/action';
-import { getBlogs } from './store/action';
 
+import { Users } from '@/utils/api';
 import { BlogPhotos } from '@/utils/api';
 
 import { LeftOutlined, PlusOutlined } from '@ant-design/icons';
@@ -44,29 +42,28 @@ function createPublisherButton() {
     return button;
 }
 
-const BlogNew = props => {
+const BlogNew = () => {
 
-    const { userInfo, list, sort } = props;
-    const { releaseBlog, getBlogs } = props;
-    const history = useHistory();
-
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    const [userBlogs, setUserBlogs] = useState([]);
+    const [title, setTitle] = useState('');
     const [blog, setBlog] = useState({
         title: '',
         content: ''
     });
 
-    const [title, setTitle] = useState('');
+    const history = useHistory();
 
     const mdRef = useRef(null);
 
     useEffect(() => {
-        if (userInfo || JSON.parse(localStorage.getItem('user'))) {
+        if (userInfo) {
             const mdInstance = mdRef.current.getInstance();
 
             // ! toast-ui/react-editor 未提供 removeEventType 方法
             !mdInstance.eventManager._hasEventType('onRelease') && mdInstance.eventManager.addEventType('onRelease');
             mdInstance.eventManager.listen('onRelease', () => {
-                releaseBlog(blog);
+                // releaseBlog(blog);
             });
 
             return () => {
@@ -74,11 +71,14 @@ const BlogNew = props => {
             };
         }
 
-    }, [blog, userInfo, releaseBlog]);
+    }, [blog, userInfo]);
 
     useEffect(() => {
-        getBlogs(1);
-    }, [getBlogs]);
+        const userInfo = JSON.parse(localStorage.getItem('user'));
+        Users.userBlogs(userInfo.id).then(res => {
+            setUserBlogs(res.data.blogs);
+        });
+    }, []);
 
     const handleEditorChange = () => {
         setBlog({
@@ -92,15 +92,12 @@ const BlogNew = props => {
             history.push('/');
         } else if (e.key === 'add-blog-set') {
         } else {
-            const blog = list[e.key.toString()];
-            setTitle(blog.title);
-            mdRef.current.getInstance().setMarkdown(blog.content);
+            const blogs = userBlogs.filter(item => item.id.toString() === e.key.toString())[0];
+            setTitle(blogs.title);
+            mdRef.current.getInstance().setMarkdown(blogs.content);
+            window.scrollTo(0, 0);
         }
     };
-
-    // useEffect(() => {
-    //     console.log(mdRef.current.getInstance())
-    // });
 
     // useEffect(() => {
     //     const mdInstance = mdRef.current.getInstance();
@@ -120,7 +117,7 @@ const BlogNew = props => {
                 <meta name="description" content={`写博客 | ${websiteConfig.name}`} />
             </Helmet>
             {
-                (userInfo || JSON.parse(localStorage.getItem('user'))) ?
+                userInfo ?
                     <Layout>
                         <Sider
                             className={styles['sider']}
@@ -143,13 +140,13 @@ const BlogNew = props => {
                                     title={<span>默认(暂不支持文集)</span>}
                                 >
                                     {
-                                        sort.map(item => {
+                                        userBlogs.map(item => {
                                             return <Menu.Item
                                                 className={styles['sider-item']}
                                                 title={1111}
-                                                key={list[item].id}>
-                                                <Title level={4} ellipsis style={{ marginBottom: 0 }}>{list[item].title}</Title>
-                                                <Text>字数：{list[item].content.length}</Text>
+                                                key={item.id}>
+                                                <Title level={4} ellipsis style={{ marginBottom: 0 }}>{item.title}</Title>
+                                                <Text>字数：{item.content.length}</Text>
                                             </Menu.Item>;
                                         })
                                     }
@@ -182,7 +179,6 @@ const BlogNew = props => {
                                     {
                                         addImageBlobHook: (file, callback) => {
 
-                                            // ? 构建表单参数
                                             const formData = new FormData();
                                             formData.append("file", file, file.name);
                                             formData.append("blogId", 23);
@@ -239,19 +235,6 @@ const BlogNew = props => {
     );
 };
 
-const mapStateToProps = state => ({
-    list: state.blog.list,
-    sort: state.blog.sort,
-    userInfo: state.user.userInfo
-});
 
-const mapDispatchToProps = (dispatch) => ({
-    releaseBlog(blog) {
-        dispatch(createBlog(blog));
-    },
-    getBlogs(page) {
-        dispatch(getBlogs(page));
-    }
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(BlogNew);
+export default BlogNew;

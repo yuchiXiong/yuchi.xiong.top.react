@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { BackTop } from 'antd';
 import { StepBackwardOutlined } from '@ant-design/icons';
@@ -7,24 +6,33 @@ import websiteConfig from '@/config/website';
 
 import BlogList from '@/components/blog-list';
 
-// import 'react-calendar-heatmap/dist/styles.css';
 import styles from './index.module.scss';
 
-import { getBlogs } from './store/action';
+import { Blogs } from '@/utils/api';
 
 // const { Title } = Typography;
 
-const Home = props => {
+const Home = () => {
 
-    const { list, total, loading, sort } = props;
-    const { getBlogs } = props;
+    const [list, setList] = useState([]);
+    const [total, setTotal] = useState({});
+    const [loading, setLoading] = useState(false);
+
+    const fetBlogs = page => {
+        setLoading(true);
+        Blogs.index(page).then(res => {
+            setList(res.data.blogs);
+            setTotal(res.data.total);
+            setLoading(false);
+        });
+    };
 
     useEffect(() => {
-        getBlogs(1);
-    }, [getBlogs]);
+        fetBlogs(1);
+    }, []);
 
     const togglePage = page => {
-        getBlogs(page);
+        fetBlogs(page);
     };
 
     return (
@@ -45,18 +53,7 @@ const Home = props => {
                 ))}
             </Carousel> */}
 
-
-
-            {/* <div className={styles.card}>
-                <Title level={4}>
-                    {`大堰河，今天我看见雪使我想起了你。
-                    你的被雪压着的草盖的坟墓，
-                    你的关闭了的故居檐头的枯死的瓦菲，
-                    你的被典押了的一丈平方的园地，
-                    你的门前的长了青苔的石椅，
-                    大堰河，今天我看到雪使我想起了你。`}</Title>
-            </div> */}
-            <BlogList list={sort.map(item => list[item])} total={total} togglePage={togglePage} loading={loading} />
+            <BlogList list={list} total={total} togglePage={togglePage} loading={loading} />
             <BackTop>
                 <div className={styles['back-top-btn']}>
                     <StepBackwardOutlined rotate={90} style={{ fontSize: 36 }} />
@@ -67,22 +64,4 @@ const Home = props => {
     );
 };
 
-const mapStoreToProps = state => {
-    return {
-        // hots: state.home.hots,
-        loading: state.blog.loading,
-        sort: state.blog.sort,
-        list: state.blog.list,
-        total: state.blog.total
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        getBlogs(page) {
-            dispatch(getBlogs(page));
-        }
-    };
-};
-
-export default connect(mapStoreToProps, mapDispatchToProps)(Home);
+export default Home;

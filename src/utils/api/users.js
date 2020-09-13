@@ -4,6 +4,6 @@ const userBlogs = id => {
     return request.get(`/users/${id}/blogs`);
 };
 
-export default {
+export {
     userBlogs
 };

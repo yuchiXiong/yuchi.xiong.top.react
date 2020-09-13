@@ -1,37 +1,39 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Viewer } from '@toast-ui/react-editor';
 import { Typography, Skeleton } from "antd";
 import dayjs from 'dayjs';
 import websiteConfig from '@/config/website';
 
-import { getBlog } from './store/action';
+import { Blogs } from '@/utils/api';
 
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import styles from './show.module.scss';
 
 const { Title, Paragraph } = Typography;
 
-const BlogShow = props => {
+const BlogShow = () => {
 
-    const { current } = props;
-    const { fetchBlog } = props;
+    const [blog, setBlog] = useState({});
     const { id } = useParams();
     const viewerRef = useRef(null);
 
-    // ! 我只希望组件挂载的时候执行一次拉取方法，但再useEffect中申明[]依赖却引起了webpack编译的warning提示
-    // ! 不声明[]时更离谱，会一直调用fetchBlog
+    const fetchBlog = id => {
+        Blogs.show(id).then(res => {
+            setBlog(res.data.blog);
+        });
+    };
+
     useEffect(() => {
         fetchBlog(id);
-    }, [id, fetchBlog]);
+    }, [id]);
 
     useEffect(() => {
-        current && !(current.error) && viewerRef.current.getInstance().setMarkdown(current.content);
-    }, [current]);
+        blog && !(blog.error) && viewerRef.current.getInstance().setMarkdown(blog.content);
+    }, [blog]);
 
-    const title = current ? current.error ? current.error : current.title : '加载中……';
+    const title = blog ? blog.error ? blog.error : blog.title : '加载中……';
 
     return (
         <>
@@ -41,15 +43,15 @@ const BlogShow = props => {
             </Helmet>
             <Typography className={styles['blog']}>
                 {
-                    current ?
-                        current.error ?
-                            <h1>{current.error}</h1> :
+                    blog ?
+                        blog.error ?
+                            <h1>{blog.error}</h1> :
                             <>
-                                <Title>{current.title}</Title>
-                                <Paragraph>发布时间：{dayjs(current.createdAt).format('YYYY年MM月DD日 HH:mm:ss')}</Paragraph>
+                                <Title>{blog.title}</Title>
+                                <Paragraph>发布时间：{dayjs(blog.createdAt).format('YYYY年MM月DD日 HH:mm:ss')}</Paragraph>
                                 <Viewer
                                     ref={viewerRef}
-                                    initialValue={current.content}
+                                    initialValue={blog.content}
                                     previewStyle="vertical"
                                     height="auto"
                                     initialEditType="markdown"
@@ -65,14 +67,4 @@ const BlogShow = props => {
     );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-    current: state.blog.list[ownProps.match.params.id],
-});
-
-const mapDispatchToProps = dispatch => ({
-    fetchBlog(id) {
-        dispatch(getBlog(id));
-    }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(BlogShow);
+export default BlogShow;
