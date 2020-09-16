@@ -1,15 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { Redirect, useHistory } from 'react-router-dom';
-import { Input, Menu, Layout, Button, Typography } from 'antd';
-import { Editor } from '@toast-ui/react-editor';
+import { Layout } from 'antd';
+
+import UserBlogsSider from './components/user-blogs-sider';
+import BlogEditor from './components/blog-editor';
 
 import { Users } from '@/utils/api';
-import { BlogPhotos } from '@/utils/api';
-
-import { LeftOutlined, PlusOutlined } from '@ant-design/icons';
-
 import websiteConfig from '@/config/website';
+
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styles from './new.module.scss';
@@ -27,51 +26,14 @@ import styles from './new.module.scss';
 // ! 留了个坑：首先这个页面的组件该拆分了，第二点是关于store也要重新设计了
 // ! 发布的模块原来使用的input是非受控组件，为了能够做编辑的部分，改成了受控组件，对应的状态啥的都要调整
 
-const { SubMenu } = Menu;
 const { Sider, Content } = Layout;
-const { Text, Title } = Typography;
-
-const ALI_OSS_DOMAIN = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com';
-
-function createPublisherButton() {
-    const button = document.createElement('button');
-
-    button.className = 'last';
-    button.innerHTML = '<p>发布博客</p>';
-
-    return button;
-}
 
 const BlogNew = () => {
 
     const userInfo = JSON.parse(localStorage.getItem('user'));
     const [userBlogs, setUserBlogs] = useState([]);
     const [title, setTitle] = useState('');
-    const [blog, setBlog] = useState({
-        title: '',
-        content: ''
-    });
-
-    const history = useHistory();
-
-    const mdRef = useRef(null);
-
-    useEffect(() => {
-        if (userInfo) {
-            const mdInstance = mdRef.current.getInstance();
-
-            // ! toast-ui/react-editor 未提供 removeEventType 方法
-            !mdInstance.eventManager._hasEventType('onRelease') && mdInstance.eventManager.addEventType('onRelease');
-            mdInstance.eventManager.listen('onRelease', () => {
-                // releaseBlog(blog);
-            });
-
-            return () => {
-                mdInstance.eventManager.removeEventHandler('onRelease');
-            };
-        }
-
-    }, [blog, userInfo]);
+    const [blog, setBlog] = useState({});
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem('user'));
@@ -80,23 +42,17 @@ const BlogNew = () => {
         });
     }, []);
 
-    const handleEditorChange = () => {
+    const handleEditorChange = content => {
         setBlog({
             ...blog,
-            content: mdRef.current.getInstance().getMarkdown()
+            content: content
         });
     };
 
-    const handleClick = e => {
-        if (e.key === 'return-home') {
-            history.push('/');
-        } else if (e.key === 'add-blog-set') {
-        } else {
-            const blogs = userBlogs.filter(item => item.id.toString() === e.key.toString())[0];
-            setTitle(blogs.title);
-            mdRef.current.getInstance().setMarkdown(blogs.content);
-            window.scrollTo(0, 0);
-        }
+    const toggleBlog = blog => {
+        setTitle(blog.title);
+        setBlog({ ...blog });
+        // mdRef.current.getInstance().setMarkdown(blog.content);
     };
 
     // useEffect(() => {
@@ -122,112 +78,18 @@ const BlogNew = () => {
                         <Sider
                             className={styles['sider']}
                             theme="light">
-                            <Menu
-                                onClick={handleClick}
-                                defaultSelectedKeys={[]}
-                                defaultOpenKeys={['default-blog-set']}
-                                mode="inline"
-                                theme="light"
-                            >
-                                <Menu.Item key="return-home" className={styles['return-home-btn']}>
-                                    <LeftOutlined /> <Title level={4}>回到首页</Title>
-                                </Menu.Item>
-                                <Menu.Item key="add-blog-set" className={styles['add-blog-set']}>
-                                    <PlusOutlined /> <text>创建文集</text>
-                                </Menu.Item>
-                                <SubMenu
-                                    key="default-blog-set"
-                                    title={<span>默认(暂不支持文集)</span>}
-                                >
-                                    {
-                                        userBlogs.map(item => {
-                                            return <Menu.Item
-                                                className={styles['sider-item']}
-                                                title={1111}
-                                                key={item.id}>
-                                                <Title level={4} ellipsis style={{ marginBottom: 0 }}>{item.title}</Title>
-                                                <Text>字数：{item.content.length}</Text>
-                                            </Menu.Item>;
-                                        })
-                                    }
-                                    <Menu.Item key="new-blog-btn" className={styles['new-blog-btn']}>
-                                        <Button type="primary" ghost block>添加新博客</Button>
-                                    </Menu.Item>
-                                </SubMenu>
-
-                            </Menu>
+                            <UserBlogsSider
+                                userBlogs={userBlogs}
+                                onClick={toggleBlog} />
                         </Sider>
                         <Content className={styles['content']}>
-                            <Input
-                                styleName={styles['input-title']}
-                                // onChange={e => setBlog({
-                                //     ...blog,
-                                //     title: e.target.value
-                                // })}
-                                onChange={e => setTitle(e.target.value)}
-                                value={title}
-                                placeholder='博客标题' />
-                            <Editor
-                                ref={mdRef}
-                                initialValue={blog.content}
-                                onChange={handleEditorChange}
-                                previewStyle="vertical"
-                                height="100%"
-                                initialEditType="markdown"
-                                useCommandShortcut={true}
-                                hooks={
-                                    {
-                                        addImageBlobHook: (file, callback) => {
-
-                                            const formData = new FormData();
-                                            formData.append("file", file, file.name);
-                                            formData.append("blogId", 23);
-
-                                            BlogPhotos.create(formData).then(res => {
-                                                callback(ALI_OSS_DOMAIN + res.data.photoURL, '图片');
-                                            });
-
-                                        }
-                                    }
-                                }
-                                toolbarItems={[
-                                    'heading',
-                                    'bold',
-                                    'italic',
-                                    'strike',
-                                    'divider',
-                                    'hr',
-                                    'quote',
-                                    'divider',
-                                    'ul',
-                                    'ol',
-                                    'task',
-                                    'indent',
-                                    'outdent',
-                                    'divider',
-                                    'table',
-                                    'image',
-                                    'link',
-                                    'divider',
-                                    'code',
-                                    'codeblock',
-                                    'divider',
-                                    {
-                                        type: 'button',
-                                        options: {
-                                            el: createPublisherButton(),
-                                            tooltip: '发布博客',
-                                            className: 'last',
-                                            event: 'onRelease',
-                                            style: 'color: #333; width: auto; margin-left: auto;'
-                                            // text: '保存',
-                                        }
-                                    }
-                                ]}
-                            />
+                            <BlogEditor
+                                blog={blog}
+                                title={title}
+                                onTitleChange={title => setTitle(title)}
+                                onEditorChange={handleEditorChange} />
                         </Content>
-                    </Layout>
-                    :
+                    </Layout> :
                     <Redirect to='/login' />
             }
 

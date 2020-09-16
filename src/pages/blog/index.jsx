@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { BackTop } from 'antd';
 import { StepBackwardOutlined } from '@ant-design/icons';
@@ -17,13 +18,19 @@ const Home = () => {
     const [list, setList] = useState([]);
     const [total, setTotal] = useState({});
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     const fetBlogs = page => {
         setLoading(true);
         Blogs.index(page).then(res => {
-            setList(res.data.blogs);
-            setTotal(res.data.total);
-            setLoading(false);
+            console.log(res);
+            if (res) {
+                setList(res.data.blogs);
+                setTotal(res.data.total);
+                setLoading(false);
+            } else {
+                setError(true);
+            }
         });
     };
 
@@ -52,13 +59,16 @@ const Home = () => {
                     </div>
                 ))}
             </Carousel> */}
+            {
+                error ?
+                    <Redirect to="/error" /> :
+                    <BlogList list={list} total={total} togglePage={togglePage} loading={loading} />
+            }
 
-            <BlogList list={list} total={total} togglePage={togglePage} loading={loading} />
             <BackTop>
                 <div className={styles['back-top-btn']}>
                     <StepBackwardOutlined rotate={90} style={{ fontSize: 36 }} />
                 </div>
-                {/* <div style={style}>UP</div> */}
             </BackTop>
         </>
     );

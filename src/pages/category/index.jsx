@@ -13,7 +13,6 @@ const Category = props => {
     const { data } = props;
 
     const callback = key => {
-        console.log(key);
     };
 
     return (

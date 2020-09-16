@@ -37,8 +37,7 @@ instance.interceptors.response.use(config => {
     if (!err.response) {
         notification.error({
             message: '从服务器拉取数据异常！',
-            description:
-                '当前无法从服务器获取响应，请检查您的网络是否通畅或联系网站管理员。',
+            description: '当前无法从服务器获取响应，请检查您的网络是否通畅或联系网站管理员。',
             placement: 'topRight',
             duration: null
         });
@@ -46,7 +45,6 @@ instance.interceptors.response.use(config => {
     } else {
         // * Http 401 给用户提示，并在3秒后跳转登录页
         if (err.response.status === 500) {
-            // history.push('/error', { from: err.response.config.url });
             history.push('/error');
             return false;
         } else if (err.response.status === 401) {
@@ -54,6 +52,9 @@ instance.interceptors.response.use(config => {
                 localStorage.removeItem('user');
                 history.push('/login');
             });
+            return false;
+        } else if (err.response.status === 404) {
+            history.push('/not-found')
             return false;
         } else {
             return err.response;

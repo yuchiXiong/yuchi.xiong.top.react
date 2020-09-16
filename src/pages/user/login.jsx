@@ -24,7 +24,6 @@ const Login = props => {
     };
 
     const onFinishFailed = errorInfo => {
-        console.log('Failed:', errorInfo);
     };
 
     // ! 如果已经登陆，直接跳转至发布页

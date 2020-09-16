@@ -21,7 +21,9 @@ const BlogShow = () => {
 
     const fetchBlog = id => {
         Blogs.show(id).then(res => {
-            setBlog(res.data.blog);
+            if (res) {
+                setBlog(res.data.blog);
+            };
         });
     };
 

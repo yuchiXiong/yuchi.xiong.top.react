@@ -7,8 +7,7 @@ import styles from './not-found.module.scss';
 const { Title, Text } = Typography;
 
 const NotFound = props => {
-    console.log(props);
-    
+
     return <div className={styles['not-found']}>
         <img src='./404.jpg' alt='页面走丢了' />
         <section className={styles['description']}>

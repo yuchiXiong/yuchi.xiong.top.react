@@ -1,0 +1,38 @@
+@import 'Assets/styles/var.scss';
+@import 'Assets/styles/minix.scss';
+
+:global(.ant-layout-sider-children) {
+    height: 100vh !important;
+    overflow-y: scroll !important;
+
+    @include scroll-reset();
+}
+
+.sider-menu {
+    border-bottom: 1px solid #eee;
+}
+
+.sider-item {
+    height: 72px !important;
+    padding-left: 24px !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-around;
+    border-bottom: 1px solid #eee;
+    margin: 0 !important;
+
+    span {
+        line-height: 20px !important;
+        height: 20px !important;
+    }
+}
+
+.return-home-btn {
+    display: flex !important;
+    justify-content: flex-start;
+    align-items: center;
+
+    h4 {
+        margin-bottom: 0 !important;
+    }
+}

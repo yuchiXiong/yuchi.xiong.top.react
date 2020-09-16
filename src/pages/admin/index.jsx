@@ -6,7 +6,6 @@ const { SubMenu } = Menu;
 
 const Admin = props => {
     const handleClick = e => {
-        console.log('click ', e);
     };
     return (
         <Menu
