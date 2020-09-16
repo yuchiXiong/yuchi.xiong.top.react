@@ -22,10 +22,6 @@ import styles from './new.module.scss';
 //     return button;
 // }
 
-// ! 太晚了……明天再弄吧
-// ! 留了个坑：首先这个页面的组件该拆分了，第二点是关于store也要重新设计了
-// ! 发布的模块原来使用的input是非受控组件，为了能够做编辑的部分，改成了受控组件，对应的状态啥的都要调整
-
 const { Sider, Content } = Layout;
 
 const BlogNew = () => {
@@ -36,11 +32,10 @@ const BlogNew = () => {
     const [blog, setBlog] = useState({});
 
     useEffect(() => {
-        const userInfo = JSON.parse(localStorage.getItem('user'));
         Users.userBlogs(userInfo.id).then(res => {
             setUserBlogs(res.data.blogs);
         });
-    }, []);
+    }, [userInfo.id]);
 
     const handleEditorChange = content => {
         setBlog({
@@ -52,7 +47,6 @@ const BlogNew = () => {
     const toggleBlog = blog => {
         setTitle(blog.title);
         setBlog({ ...blog });
-        // mdRef.current.getInstance().setMarkdown(blog.content);
     };
 
     // useEffect(() => {
@@ -92,7 +86,6 @@ const BlogNew = () => {
                     </Layout> :
                     <Redirect to='/login' />
             }
-
         </>
     );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Typography, Button } from 'antd';
 import { LeftOutlined, PlusOutlined } from '@ant-design/icons';
+import history from '@/utils/history';
 
 import styles from './index.module.scss';
 
@@ -11,8 +12,9 @@ class UserBlogsSider extends React.Component {
 
     handleClick(e) {
         if (e.key === 'return-home') {
-            this.props.history.push('/');
+            history.push('/');
         } else if (e.key === 'add-blog-set') {
+        } else if (e.key === 'new-blog-btn') {
         } else {
             const blogs = this.props.userBlogs.filter(item => item.id.toString() === e.key.toString())[0];
             this.props.onClick(blogs);
