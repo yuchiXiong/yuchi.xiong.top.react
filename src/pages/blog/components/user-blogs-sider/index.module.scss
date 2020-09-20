@@ -16,10 +16,16 @@
     height: 72px !important;
     padding-left: 24px !important;
     display: flex !important;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #eee;
     margin: 0 !important;
+
+    .sider-item-title {
+        font-size: 18px;
+        width: 200px;
+    }
 
     span {
         line-height: 20px !important;

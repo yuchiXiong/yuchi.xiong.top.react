@@ -2,7 +2,7 @@ import React from 'react';
 import { Input } from 'antd';
 import { Editor } from '@toast-ui/react-editor';
 
-import { BlogPhotos } from '@/utils/api';
+import { Blogs, BlogPhotos } from '@/utils/api';
 
 import styles from './index.module.scss';
 
@@ -12,7 +12,7 @@ function createPublisherButton() {
     const button = document.createElement('button');
 
     button.className = 'last';
-    button.innerHTML = '<p>发布博客</p>';
+    button.innerHTML = '<p>发布更新</p>';
 
     return button;
 }
@@ -21,56 +21,55 @@ class BlogEditor extends React.Component {
 
     constructor(props) {
         super(props);
-        this.userInfo = JSON.parse(localStorage.getItem('key'));
-        this.onTitleChange = props.onTitleChange;
-        this.onEditorChange = props.onEditorChange;
+        this.userInfo = JSON.parse(localStorage.getItem('user'));
+        this.blog = props.blog;
+        this.onChange = props.onChange;
         this.mdRef = React.createRef(null);
-        this.handleEditorChange = this.handleEditorChange.bind(this);
     }
 
     componentDidMount() {
-        if (this.userInfo) {
-            const mdInstance = this.mdRef.current.getInstance();
+        // if (this.userInfo) {
+        //     const mdInstance = this.mdRef.current.getInstance();
 
-            // ! toast-ui/react-editor 未提供 removeEventType 方法
-            !mdInstance.eventManager._hasEventType('onRelease') && mdInstance.eventManager.addEventType('onRelease');
-            mdInstance.eventManager.listen('onRelease', () => {
-                // releaseBlog(blog);
-            });
-        }
+        //     // ! toast-ui/react-editor 未提供 removeEventType 方法
+        //     !mdInstance.eventManager._hasEventType('onRelease') && mdInstance.eventManager.addEventType('onRelease');
+        //     mdInstance.eventManager.listen('onRelease', () => {
+        //         // releaseBlog(blog);
+        //         console.log(this.props);
+        //         // console.log(Blogs.update());
+        //         console.log('...');
+        //     });
+        // }
     }
 
-    shouldComponentUpdate(nextProp) {
-        if (nextProp !== this.props) {
-            this.mdRef.current.getInstance().setMarkdown(nextProp.blog.content);
-            window.scrollTo(0, 0);
-            return true;
-        } else {
-            return false;
-        }
+    shouldComponentUpdate(nextProps) {
+        // ! 先简单编写更新逻辑，稍后补充完整
+        this.mdRef.current.getInstance().setMarkdown(nextProps.blog.content);
+        // this.mdRef.current.getInstance().scrollTop(0);
+        return true;
     }
 
     componentWillUnmount() {
-        const mdInstance = this.mdRef.current.getInstance();
-        mdInstance.eventManager.removeEventHandler('onRelease');
+        // const mdInstance = this.mdRef.current.getInstance();
+        // mdInstance.eventManager.removeEventHandler('onRelease');
     }
 
-    handleEditorChange() {
-        this.onEditorChange(this.mdRef.current.getInstance().getMarkdown());
-    }
+    // handleChange(currentBlog) {
+    //     this.props.onChange(currentBlog);
+    // }
+
 
     render() {
         return <>
             <Input
                 styleName={styles['input-title']}
-                onChange={e => this.onTitleChange(e.target.value)}
-                value={this.props.title}
+                onChange={e => this.onChange({ ...this.props.blog, title: e.target.value })}
+                value={this.props.blog.title}
                 placeholder='博客标题' />
             <Editor
                 ref={this.mdRef}
-                // initialValue={this.props.blog.content}
                 value={this.props.blog.content}
-                onChange={this.handleEditorChange}
+                onChange={() => this.onChange({ ...this.props.blog, content: this.mdRef.current.getInstance().getMarkdown() })}
                 previewStyle="vertical"
                 height="100%"
                 initialEditType="markdown"
@@ -117,7 +116,7 @@ class BlogEditor extends React.Component {
                             tooltip: '发布博客',
                             className: 'last',
                             event: 'onRelease',
-                            style: 'color: #333; width: auto; margin-left: auto;'
+                            style: 'color: #333; width: auto; margin-left: auto;',
                             // text: '保存',
                         }
                     }

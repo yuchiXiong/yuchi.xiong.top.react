@@ -11,6 +11,14 @@
   display: none !important;
 }
 
+.sider {
+  $width: 300px;
+  flex: 0 0 $width !important;
+  max-width: $width !important;
+  min-width: $width !important;
+  width: $width !important;
+}
+
 .content {
   display: flex;
   flex-direction: column;
