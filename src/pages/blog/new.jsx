@@ -6,7 +6,7 @@ import { Layout } from 'antd';
 import UserBlogsSider from './components/user-blogs-sider';
 import BlogEditor from './components/blog-editor';
 
-import { Users } from '@/utils/api';
+import { Users, Blogs } from '@/utils/api';
 import websiteConfig from '@/config/website';
 
 import 'codemirror/lib/codemirror.css';
@@ -31,6 +31,7 @@ class BlogNew extends React.Component {
         };
         this.toggleBlog = this.toggleBlog.bind(this);
         this.handleEditorChange = this.handleEditorChange.bind(this);
+        this.handleBlogUpdate = this.handleBlogUpdate.bind(this);
     }
 
     // * 组件挂载后拉取当前用户的博客列表
@@ -39,16 +40,33 @@ class BlogNew extends React.Component {
             this.setState({
                 blogs: res.data.blogs
             });
+            this.setState({ currentBlog: res.data.blogs[0] });
         });
     }
 
+    // * 点击左侧sider切换右侧显示的博客内容
     toggleBlog(id) {
         const selectedBlog = this.state.blogs.filter(item => item.id.toString() === id.toString())[0];
         this.setState({ currentBlog: selectedBlog });
     }
 
+    // * 当编辑器内容发生修改时更新状态
     handleEditorChange(blog) {
         this.setState({ currentBlog: blog });
+    }
+
+    // * 将修改后的博客上传至服务器
+    handleBlogUpdate(blog) {
+        Blogs.update(blog.id, {
+            blog
+        }).then(res => {
+            this.setState({
+                blogs: [
+                    res.data.blog,
+                    ...this.state.blogs.filter(item => item.id.toString() !== blog.id.toString())
+                ]
+            });
+        });
     }
 
     render() {
@@ -71,6 +89,7 @@ class BlogNew extends React.Component {
                             <BlogEditor
                                 blog={this.state.currentBlog}
                                 onChange={this.handleEditorChange}
+                                onBlogUpdate={this.handleBlogUpdate}
                             />
                         </Content>
                     </Layout> :
