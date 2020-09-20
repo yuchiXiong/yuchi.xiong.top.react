@@ -22,49 +22,43 @@ class BlogEditor extends React.Component {
     constructor(props) {
         super(props);
         this.userInfo = JSON.parse(localStorage.getItem('user'));
-        this.mdRef = React.createRef(null);
+        this.editorRef = React.createRef(null);
+        this.inputRef = React.createRef(null);
     }
 
     componentDidMount() {
+        // * 更新标题和内容
         if (this.userInfo) {
-            const mdInstance = this.mdRef.current.getInstance();
 
+            this.inputRef.current.setValue(this.props.blog.title);
+            this.editorRef.current.getInstance().setMarkdown(this.props.blog.content);
+
+            const mdInstance = this.editorRef.current.getInstance();
             // ! toast-ui/react-editor 未提供 removeEventType 方法
             !mdInstance.eventManager._hasEventType('onRelease') && mdInstance.eventManager.addEventType('onRelease');
             mdInstance.eventManager.listen('onRelease', () => {
-                this.props.onBlogUpdate(this.props.blog);
+                this.props.onBlogUpdate({
+                    ...this.props.blog,
+                    title: this.inputRef.current.state.value,
+                    content: mdInstance.getMarkdown()
+                });
             });
         }
     }
 
-    shouldComponentUpdate(nextProps) {
-        // ! 先简单编写更新逻辑，稍后补充完整
-        this.mdRef.current.getInstance().setMarkdown(nextProps.blog.content);
-        // this.mdRef.current.getInstance().scrollTop(0);
-        return true;
-    }
-
     componentWillUnmount() {
-        const mdInstance = this.mdRef.current.getInstance();
+        const mdInstance = this.editorRef.current.getInstance();
         mdInstance.eventManager.removeEventHandler('onRelease');
     }
-
-    // handleChange(currentBlog) {
-    //     this.props.onChange(currentBlog);
-    // }
-
 
     render() {
         return <>
             <Input
                 styleName={styles['input-title']}
-                onChange={e => this.props.onChange({ ...this.props.blog, title: e.target.value })}
-                value={this.props.blog.title}
+                ref={this.inputRef}
                 placeholder='博客标题' />
             <Editor
-                ref={this.mdRef}
-                value={this.props.blog.content}
-                onChange={() => this.props.onChange({ ...this.props.blog, content: this.mdRef.current.getInstance().getMarkdown() })}
+                ref={this.editorRef}
                 previewStyle="vertical"
                 height="100%"
                 initialEditType="markdown"
@@ -108,7 +102,7 @@ class BlogEditor extends React.Component {
                         type: 'button',
                         options: {
                             el: createPublisherButton(),
-                            tooltip: '发布博客',
+                            tooltip: '发布更新',
                             className: 'last',
                             event: 'onRelease',
                             style: 'color: #333; width: auto; margin-left: auto;',

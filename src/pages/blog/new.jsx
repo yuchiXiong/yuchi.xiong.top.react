@@ -23,14 +23,16 @@ class BlogNew extends React.Component {
         this.state = {
             // * 当前编辑器里的博客对象
             currentBlog: {
-                title: '',
-                content: ''
+                userId: -1,
+                title: "",
+                content: "",
+                id: -1,
+                released: false,
             },
             // * 当前用户的博客列表
             blogs: []
         };
         this.toggleBlog = this.toggleBlog.bind(this);
-        this.handleEditorChange = this.handleEditorChange.bind(this);
         this.handleBlogUpdate = this.handleBlogUpdate.bind(this);
     }
 
@@ -48,11 +50,6 @@ class BlogNew extends React.Component {
     toggleBlog(id) {
         const selectedBlog = this.state.blogs.filter(item => item.id.toString() === id.toString())[0];
         this.setState({ currentBlog: selectedBlog });
-    }
-
-    // * 当编辑器内容发生修改时更新状态
-    handleEditorChange(blog) {
-        this.setState({ currentBlog: blog });
     }
 
     // * 将修改后的博客上传至服务器
@@ -88,8 +85,8 @@ class BlogNew extends React.Component {
                         <Content className={styles['content']}>
                             <BlogEditor
                                 blog={this.state.currentBlog}
-                                onChange={this.handleEditorChange}
                                 onBlogUpdate={this.handleBlogUpdate}
+                                key={this.state.currentBlog.id}
                             />
                         </Content>
                     </Layout> :
