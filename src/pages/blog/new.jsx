@@ -38,12 +38,14 @@ class BlogNew extends React.Component {
 
     // * 组件挂载后拉取当前用户的博客列表
     componentDidMount() {
-        Users.userBlogs(this.userInfo.id).then(res => {
-            this.setState({
-                blogs: res.data.blogs
+        if (this.userInfo) {
+            Users.userBlogs(this.userInfo.id).then(res => {
+                this.setState({
+                    blogs: res.data.blogs
+                });
+                this.setState({ currentBlog: res.data.blogs[0] });
             });
-            this.setState({ currentBlog: res.data.blogs[0] });
-        });
+        }
     }
 
     // * 点击左侧sider切换右侧显示的博客内容

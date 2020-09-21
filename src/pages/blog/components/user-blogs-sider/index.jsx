@@ -68,11 +68,11 @@ class UserBlogsSider extends React.Component {
                             </Menu.Item>;
                         })
                     }
-                    <Menu.Item key="new-blog-btn" className={styles['new-blog-btn']}>
-                        <Button type="primary" ghost block>添加新博客</Button>
-                    </Menu.Item>
-                </SubMenu>
 
+                </SubMenu>
+                <Menu.Item key="new-blog-btn" className={styles['new-blog-btn']}>
+                    <Button type="primary" ghost block>添加新博客</Button>
+                </Menu.Item>
             </Menu>
         );
     }

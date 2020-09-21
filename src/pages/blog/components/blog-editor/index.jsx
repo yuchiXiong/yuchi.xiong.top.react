@@ -8,13 +8,21 @@ import styles from './index.module.scss';
 
 const ALI_OSS_DOMAIN = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com';
 
-function createPublisherButton() {
+// * 创建一个用于更新文章的按钮
+function createUpdateBlogBtn() {
     const button = document.createElement('button');
 
     button.className = 'last';
     button.innerHTML = '<p>发布更新</p>';
 
     return button;
+}
+
+function createToggleReleasedStateBtn() {
+    const button = document.createElement('button');
+
+    button.className = 'last';
+    button.innerHTML = '<p></p>';
 }
 
 class BlogEditor extends React.Component {
@@ -101,7 +109,7 @@ class BlogEditor extends React.Component {
                     {
                         type: 'button',
                         options: {
-                            el: createPublisherButton(),
+                            el: createUpdateBlogBtn(),
                             tooltip: '发布更新',
                             className: 'last',
                             event: 'onRelease',
