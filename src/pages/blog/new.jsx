@@ -63,7 +63,8 @@ class BlogNew extends React.Component {
                 blogs: [
                     res.data.blog,
                     ...this.state.blogs.filter(item => item.id.toString() !== blog.id.toString())
-                ]
+                ],
+                currentBlog: { ...res.data.blog }
             });
         });
     }
@@ -88,7 +89,7 @@ class BlogNew extends React.Component {
                             <BlogEditor
                                 blog={this.state.currentBlog}
                                 onBlogUpdate={this.handleBlogUpdate}
-                                key={this.state.currentBlog.id}
+                                key={this.state.currentBlog.id + this.state.currentBlog.released.toString()}
                             />
                         </Content>
                     </Layout> :

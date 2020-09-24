@@ -13,16 +13,18 @@ function createUpdateBlogBtn() {
     const button = document.createElement('button');
 
     button.className = 'last';
-    button.innerHTML = '<p>发布更新</p>';
+    button.innerHTML = '<p>保存</p>';
 
     return button;
 }
 
-function createToggleReleasedStateBtn() {
+function createToggleReleasedStateBtn(releasedState) {
     const button = document.createElement('button');
 
     button.className = 'last';
-    button.innerHTML = '<p></p>';
+    button.innerHTML = `<p>${releasedState ? '取消发布' : '发布博客'}</p>`;
+
+    return button;
 }
 
 class BlogEditor extends React.Component {
@@ -35,12 +37,12 @@ class BlogEditor extends React.Component {
     }
 
     componentDidMount() {
-        // * 更新标题和内容
         if (this.userInfo) {
-
+            // * 更新标题和内容
             this.inputRef.current.setValue(this.props.blog.title);
             this.editorRef.current.getInstance().setMarkdown(this.props.blog.content);
 
+            // * 为md编辑器绑定自定义菜单事件
             const mdInstance = this.editorRef.current.getInstance();
             // ! toast-ui/react-editor 未提供 removeEventType 方法
             !mdInstance.eventManager._hasEventType('onRelease') && mdInstance.eventManager.addEventType('onRelease');
@@ -51,12 +53,25 @@ class BlogEditor extends React.Component {
                     content: mdInstance.getMarkdown()
                 });
             });
+
+            !mdInstance.eventManager._hasEventType('onToggleReleasedState') && mdInstance.eventManager.addEventType('onToggleReleasedState');
+            mdInstance.eventManager.listen('onToggleReleasedState', () => {
+                this.props.onBlogUpdate({
+                    ...this.props.blog,
+                    released: !this.props.blog.released
+                });
+            });
+
+            document.addEventListener('keydown', e => {
+                console.log('...');
+            });
         }
     }
 
     componentWillUnmount() {
         const mdInstance = this.editorRef.current.getInstance();
         mdInstance.eventManager.removeEventHandler('onRelease');
+        mdInstance.eventManager.removeEventHandler('onToggleReleasedState');
     }
 
     render() {
@@ -109,11 +124,22 @@ class BlogEditor extends React.Component {
                     {
                         type: 'button',
                         options: {
+                            el: createToggleReleasedStateBtn(this.props.blog.released),
+                            tooltip: '发布更新',
+                            className: 'last',
+                            event: 'onToggleReleasedState',
+                            style: 'color: #333; width: auto; margin-left: auto;',
+                            // text: '保存',
+                        }
+                    },
+                    {
+                        type: 'button',
+                        options: {
                             el: createUpdateBlogBtn(),
                             tooltip: '发布更新',
                             className: 'last',
                             event: 'onRelease',
-                            style: 'color: #333; width: auto; margin-left: auto;',
+                            style: 'color: #333; width: auto;',
                             // text: '保存',
                         }
                     }
