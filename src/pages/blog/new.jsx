@@ -49,9 +49,21 @@ class BlogNew extends React.Component {
     }
 
     // * 点击左侧sider切换右侧显示的博客内容
+    // ! 当点击的按钮是添加博客时传递过来的是博客对象
     toggleBlog(id) {
-        const selectedBlog = this.state.blogs.filter(item => item.id.toString() === id.toString())[0];
-        this.setState({ currentBlog: selectedBlog });
+        if (typeof id !== 'object') {
+            const selectedBlog = this.state.blogs.filter(item => item.id.toString() === id.toString())[0];
+            this.setState({ currentBlog: selectedBlog });
+        } else {
+            const blog = id;
+            this.setState({
+                currentBlog: blog,
+                blogs: [
+                    blog,
+                    ...this.state.blogs
+                ]
+            });
+        }
     }
 
     // * 将修改后的博客上传至服务器

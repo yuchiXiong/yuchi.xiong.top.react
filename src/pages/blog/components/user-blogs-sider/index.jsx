@@ -1,13 +1,25 @@
 import React from 'react';
-import { Menu, Typography, Button } from 'antd';
+import { Menu, Typography, Button, Dropdown } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 import { LeftOutlined, PlusOutlined } from '@ant-design/icons';
 import history from '@/utils/history';
+import { Blogs } from '@/utils/api';
+import dayjs from 'dayjs';
 
 import styles from './index.module.scss';
 
 const { SubMenu } = Menu;
 const { Title, Text } = Typography;
+
+const menu = (
+    <Menu>
+        <Menu.Item>
+            <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+                删除博客
+            </a>
+        </Menu.Item>
+    </Menu>
+);
 
 class UserBlogsSider extends React.Component {
 
@@ -23,8 +35,13 @@ class UserBlogsSider extends React.Component {
             history.push('/');
         } else if (e.key === 'add-blog-set') {
         } else if (e.key === 'new-blog-btn') {
+            Blogs.create({
+                title: dayjs(new Date()).format('YYYY年MM月DD日'),
+                content: ''
+            }).then(res => {
+                this.props.onClick(res.data.blog);
+            });
         } else {
-            // const blogs = this.props.userBlogs.filter(item => item.id.toString() === e.key.toString())[0];
             this.props.onClick(e.key);
             window.scrollTo(0, 0);
         }
@@ -58,9 +75,11 @@ class UserBlogsSider extends React.Component {
                                 key={item.id}>
                                 <Text level={4} ellipsis className={styles['sider-item-title']}>{item.title}</Text>
                                 {
-                                    this.state.selected === index && <SettingOutlined
-                                        onClick={() => console.log(item.id)}
-                                        style={{ fontSize: '18px' }} />
+                                    this.state.selected === index && <Dropdown overlay={menu}>
+                                        <SettingOutlined
+                                            onClick={() => console.log(item.id)}
+                                            style={{ fontSize: '18px' }} />
+                                    </Dropdown>
                                 }
 
                                 {/* <Text >{item.content}</Text> */}

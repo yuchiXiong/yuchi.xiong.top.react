@@ -61,10 +61,6 @@ class BlogEditor extends React.Component {
                     released: !this.props.blog.released
                 });
             });
-
-            document.addEventListener('keydown', e => {
-                console.log('...');
-            });
         }
     }
 

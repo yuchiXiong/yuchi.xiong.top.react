@@ -23,7 +23,6 @@ const Home = () => {
     const fetBlogs = page => {
         setLoading(true);
         Blogs.index(page).then(res => {
-            console.log(res);
             if (res) {
                 setList(res.data.blogs);
                 setTotal(res.data.total);
