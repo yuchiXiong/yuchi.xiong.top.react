@@ -34,6 +34,7 @@ class BlogNew extends React.Component {
         };
         this.toggleBlog = this.toggleBlog.bind(this);
         this.handleBlogUpdate = this.handleBlogUpdate.bind(this);
+        this.onDelete = this.onDelete.bind(this);
     }
 
     // * 组件挂载后拉取当前用户的博客列表
@@ -81,6 +82,12 @@ class BlogNew extends React.Component {
         });
     }
 
+    onDelete(id) {
+        this.setState({
+            blogs: [...this.state.blogs.filter(item => item.id.toString() !== id.toString())]
+        });
+    }
+
     render() {
         return <>
             <Helmet>
@@ -95,6 +102,7 @@ class BlogNew extends React.Component {
                             theme="light">
                             <UserBlogsSider
                                 dataSource={this.state.blogs}
+                                onDelete={this.onDelete}
                                 onClick={this.toggleBlog} />
                         </Sider>
                         <Content className={styles['content']}>
